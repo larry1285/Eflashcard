@@ -8,37 +8,12 @@
   <link rel="stylesheet" href="css/style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="js//eflash.js"></script>
+  <script src="js/eflash.js"></script>
 </head>
 <body>
 
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">Eflashcard</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li class="active" style="position:relative; top:6px">
-        <form>
-          <div class = "input-group" style="width:400px; padding-top:13px;">
-            <input type = "text" class ="form-control" placeholder = "Search for.." style="font-size:30px;">
-            <span class="input-group-btn">
-              <button name="submit" class="btn btn-default" type="submit">
-                <span class="glyphicon glyphicon-search"></span>
-              </button>
-            </span>
-          </div> 
-        </form>
-      </li>
-      <li style="padding-top:11px;"><a href="create.php" style="font-size:35px; padding-top:10px;">Create<span class="glyphicon glyphicon-plus" style="position:relative; left:3px; top:1px"></span></a></li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="#" style="padding-top:25px; font-size:35px;"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a href="#" style="padding-top:25px; font-size:35px;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-    </ul>
-  </div>
-</nav>
-  
+<?php include "includes/nav.html"; ?>
+    
 <div class="container-fluid" style="position:relative; top:-20px;" id="create_background">
   <row>
     <div class="col-xs-12">

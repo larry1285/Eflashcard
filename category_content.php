@@ -14,36 +14,9 @@
 
 <?php include "includes/db.php"; ?>
   
-<!--
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">Eflashcard</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li class="active" style="position:relative; top:6px">
-        <form>
-          <div class = "input-group" style="width:400px; padding-top:13px;">
-            <input type = "text" class ="form-control" placeholder = "Search for.." style="font-size:30px;">
-            <span class="input-group-btn">
-              <button name="submit" class="btn btn-default" type="submit">
-                <span class="glyphicon glyphicon-search"></span>
-              </button>
-            </span>
-          </div> 
-        </form>
-      </li>
-      <li style="padding-top:11px;"><a href="create.php" style="font-size:35px; padding-top:10px;">Create<span class="glyphicon glyphicon-plus" style="position:relative; left:3px; top:1px"></span></a></li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="#" style="padding-top:25px; font-size:35px;"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a href="#" style="padding-top:25px; font-size:35px;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-    </ul>
-  </div>
-</nav>
--->
+<?php include "includes/nav.html"; ?>
   
-<?php  //retrieve data from db
+<?php  //create table and insert user's data if sumbit button is clicked
 global $connection;
 $category_name=$_GET['category_name'];
 if(isset($_GET['category_submit'])){
@@ -75,9 +48,22 @@ if(isset($_GET['category_submit'])){
 else{
   
   echo"category_submit failed";
-  
 }
 ?>
+  
+<?php  //retreive data from db
+$sql_select_all_categories="SELECT * FROM {$category_name}";
+$result_sql_select_all_categories=mysqli_query($connection,$sql_select_all_categories);
+if (mysqli_num_rows($result_sql_select_all_categories) > 0) {
+  while($row = mysqli_fetch_assoc($result_sql_select_all_categories)) {
+      echo '<p class="category_content">'.$row["card_name"].'</p>';
+      echo '<p class="category_content">'.$row["card_content"].'</p>';
+  }
+} else {
+  echo "0 results";
+}
+?>
+
   
 </body>
 </html>
