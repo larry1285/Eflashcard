@@ -1,0 +1,53 @@
+#create_background {   /* id */
+background-color:#E0E0E0;
+
+}
+
+.CreateSetHeader-separator {
+    border-top: 2px solid #455358;
+    height: 0;
+    margin-bottom: 14px;
+}
+
+hr.vertical
+{
+   width: 0px;
+   height: 100%; /* or height in PX */
+} 
+
+.navbar {
+  min-height: 100px;
+}
+
+.navbar-brand {
+  float: left;
+  height: 50px;
+  padding: 35px 15px 15px 15px;
+  font-size: 70px;
+  line-height: 20px;
+}
+
+.form-control{
+  height:55px;
+}
+
+.btn{
+  font-size:29px;
+  
+}
+
+textarea{
+  overflow:hidden;
+  resize: none;
+}
+
+input[type=submit] {
+    padding:5px 15px; 
+    background:#ccc; 
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; 
+    width:130px;
+    height:60px;
+}
