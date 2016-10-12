@@ -11,11 +11,21 @@
   <script src="js/eflash.js"></script>
 </head>
 <body>
-
+<?php include "includes/db.php"; ?>
 <?php include "includes/nav.html"; ?>
   
 <div class="container" >
-
+  <?php
+  $query="SHOW TABLES FROM ". DB_NAME;
+  $result = mysqli_query($connection,$query);
+  if (mysqli_num_rows($result) > 0) {
+    while($table = mysqli_fetch_array($result)) {
+        echo($table[0] . "<BR>");  
+    }
+  } else {
+    echo "0 results";
+  }
+  ?>
 </div>
 
 </body>

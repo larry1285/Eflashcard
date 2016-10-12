@@ -33,7 +33,7 @@ if(isset($_GET['category_submit'])){
     }
     else { //table not exist
       //如果有二個相同的category,之後要在create.php就加以處理
-      echo "Table not  exists";
+      //echo "Table not  exists";
       $query = "CREATE TABLE {$category_name} ( 
       id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
       card_name VARCHAR(255) NOT NULL,
@@ -63,8 +63,8 @@ else{
 ?>
   
 <?php  //retreive data from db
-$sql_select_all_categories="SELECT * FROM {$category_name}";
-$result_sql_select_all_categories=mysqli_query($connection,$sql_select_all_categories);
+$sql_select_all_category_content="SELECT * FROM {$category_name}";
+$result_sql_select_all_categories=mysqli_query($connection,$sql_select_all_category_content);
 if (mysqli_num_rows($result_sql_select_all_categories) > 0) {
   while($row = mysqli_fetch_assoc($result_sql_select_all_categories)) {
       echo '<p class="category_content">'.$row["card_name"].'</p>';
