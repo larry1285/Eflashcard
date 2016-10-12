@@ -58,7 +58,7 @@ if(isset($_GET['category_submit'])){
   }
 }
 else{
-  echo"category_submit failed";
+  //echo"category_submit failed";
 }
 ?>
   

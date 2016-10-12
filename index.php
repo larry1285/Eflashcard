@@ -20,7 +20,7 @@
   $result = mysqli_query($connection,$query);
   if (mysqli_num_rows($result) > 0) {
     while($table = mysqli_fetch_array($result)) {
-        echo($table[0] . "<BR>");  
+        echo '<a href="category_content.php?category_name='.$table[0].'">'.$table[0].'</a><br>';
     }
   } else {
     echo "0 results";
