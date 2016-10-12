@@ -25,28 +25,39 @@ if(isset($_GET['category_submit'])){
   if($card1_name=="" || empty($card1_name)){
     $card1_name="empty";
   }
-  //如果有二個相同的category,之後要在create.php就加以處理
-  $query = "CREATE TABLE {$category_name} ( 
-  id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
-  card_name VARCHAR(255) NOT NULL,
-  card_content VARCHAR(30)
-  )";
+  
+  $query="SHOW TABLES LIKE '". $category_name ."'";
+  if ($result = mysqli_query($connection,$query) ) {
+    if($result->num_rows == 1) {
+    //echo "Table exists";
+    }
+    else { //table not exist
+      //如果有二個相同的category,之後要在create.php就加以處理
+      echo "Table not  exists";
+      $query = "CREATE TABLE {$category_name} ( 
+      id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+      card_name VARCHAR(255) NOT NULL,
+      card_content VARCHAR(30)
+      )";
 
-  $create_category_query = mysqli_query($connection,$query);
+      $create_category_query = mysqli_query($connection,$query);
 
-  if(!$create_category_query){
+      if(!$create_category_query){
+        die('QUERY FAILED'.mysqli_error($connection));
+      }
+      $query = "INSERT INTO {$category_name} (card_name,card_content)
+      VALUES ('$card1_name','$card1_content')";
+
+      $insert_first_card_of_the_category=mysqli_query($connection,$query);
+      if(!$create_category_query){
+        die('QUERY FAILED'.mysqli_error($connection));
+      }  
+    }
+  }else{
     die('QUERY FAILED'.mysqli_error($connection));
   }
-  $query = "INSERT INTO {$category_name} (card_name,card_content)
-  VALUES ('$card1_name','$card1_content')";
-  
-  $insert_first_card_of_the_category=mysqli_query($connection,$query);
-  if(!$create_category_query){
-    die('QUERY FAILED'.mysqli_error($connection));
-  }  
 }
 else{
-  
   echo"category_submit failed";
 }
 ?>
