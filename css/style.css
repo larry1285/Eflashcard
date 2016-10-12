@@ -58,3 +58,19 @@ p.category_content{
     width:30%;
     display:inline-block;
 }
+
+a.category:link, a.category:visited {
+    background-color: #f44336;
+    color: white;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    width:65%;
+    border-style: ridge;  
+}
+
+
+a.category:hover, a.category:active {
+    background-color: red;
+}

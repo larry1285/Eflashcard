@@ -20,14 +20,20 @@
   $result = mysqli_query($connection,$query);
   if (mysqli_num_rows($result) > 0) {
     while($table = mysqli_fetch_array($result)) {
-        echo '<a href="category_content.php?category_name='.$table[0].'">'.$table[0].'</a><br>';
+          echo '<a class="category" href="category_content.php?category_name='.$table[0].'">'.$table[0].'</a><br>';
     }
   } else {
     echo "0 results";
   }
   ?>
 </div>
-
+<!--
+<script type="text/javascript">
+    document.getElementById("myButton").onclick = function () {
+        location.href = "www.yoursite.com";
+    };
+</script>
+-->
 </body>
 </html>
 
