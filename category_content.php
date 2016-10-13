@@ -66,10 +66,17 @@ else{
 $sql_select_all_category_content="SELECT * FROM {$category_name}";
 $result_sql_select_all_categories=mysqli_query($connection,$sql_select_all_category_content);
 if (mysqli_num_rows($result_sql_select_all_categories) > 0) {
+  echo ' <table style="width:60%">';
   while($row = mysqli_fetch_assoc($result_sql_select_all_categories)) {
-      echo '<p class="category_content">'.$row["card_name"].'</p>';
-      echo '<p class="category_content">'.$row["card_content"].'</p>';
+    echo ' 
+             <tr>
+               <td style="width:50%">'.$row["card_name"].'</td>
+               <td style="width:50%">'.$row["card_content"].'</td>
+             </tr>
+
+    ' ;
   }
+  echo '</table>';
 } else {
   echo "0 results";
 }

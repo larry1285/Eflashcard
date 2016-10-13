@@ -53,10 +53,14 @@ input[type=submit] {
 }
 
 p.category_content{
-    border-style: solid;
-    border-color: red;
+    border: 2px solid red;
     width:30%;
+    font-size:25px;
     display:inline-block;
+    word-break: keep-all;
+    white-space: normal;
+    vertical-align:top;  
+
 }
 
 a.category:link, a.category:visited {
@@ -66,11 +70,15 @@ a.category:link, a.category:visited {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    width:65%;
+    width:70%;
     border-style: ridge;  
 }
 
 
 a.category:hover, a.category:active {
     background-color: red;
+}
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
 }
