@@ -82,3 +82,18 @@ table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
 }
+
+button.category_content
+{
+  vertical-align:top;  
+  
+}
+h1.category_heaer
+{
+  
+  background-color: #eee;
+}
+.b1{
+  
+  background-color:beige;
+}

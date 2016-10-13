@@ -10,15 +10,19 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="js//eflash.js"></script>
 </head>
-<body>
+<body class="b1">
 
 <?php include "includes/db.php"; ?>
   
 <?php include "includes/nav.html"; ?>
-  
+<div class="container">
 <?php  //create table and insert user's data if sumbit button is clicked
 global $connection;
 $category_name=$_GET['category_name'];
+echo '
+<div>
+  <h1 class="category_heaer">'.$category_name.'</h1>
+</div>';
 if(isset($_GET['category_submit'])){
   $card1_name=$_GET['card1_name'];
   $card1_content=$_GET['card1_content'];
@@ -66,12 +70,13 @@ else{
 $sql_select_all_category_content="SELECT * FROM {$category_name}";
 $result_sql_select_all_categories=mysqli_query($connection,$sql_select_all_category_content);
 if (mysqli_num_rows($result_sql_select_all_categories) > 0) {
-  echo ' <table style="width:60%">';
+  echo ' <table style="width:100%">';
   while($row = mysqli_fetch_assoc($result_sql_select_all_categories)) {
     echo ' 
              <tr>
                <td style="width:50%">'.$row["card_name"].'</td>
                <td style="width:50%">'.$row["card_content"].'</td>
+               <td valign="top"><button><span class="glyphicon glyphicon-pencil"></span></button></td>
              </tr>
 
     ' ;
@@ -82,7 +87,7 @@ if (mysqli_num_rows($result_sql_select_all_categories) > 0) {
 }
 ?>
 
-  
+</div>
 </body>
 </html>
 
