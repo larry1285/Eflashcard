@@ -1,50 +1,21 @@
-<!DOCTYPE HTML>
-<html><head><!-- yada yada yada -->
-<style> 
-ul {
-    margin: 0;
-}
-
-li {
-    clear: both;
-    display: table-row;
-    width: 100%;
-}
-
-p {
-    width:200px;
-    display: table-cell;
-    padding: .5em;
-    vertical-align: top;
-     border: 2px solid red;
-}
-
-p.category {
-     border: 2px solid red;
-}  
-
-</style>
-</head>
+<!DOCTYPE html>
+<html>
 <body>
 
-  <div style="display:table;">
-    <p class="category">Something (known width)</p>
-    <p class="category">Something long and multiple lines.
-        Shouldn't wrap underneath category. 
-      Lorem ipsum dolor sit amet consecteur adipiscing elit no numi. 
-      Lorem ipsum dolor sit amet consecteur adipiscing elit no numi.
-      Lorem ipsum dolor sit amet consecteur adipiscing elit no numi.
-      Lorem ipsum dolor sit amet consecteur adipiscing elit no numi.
-      Lorem ipsum dolor sit amet casdsadasdasdasonsecteur adipiscing elit no numi.
-      Lorem ipsum dolor sit amet consecteur adipiscing elit no numifuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuck.</p>
-  </div>
+<h1>JavaScript Statements</h1>
 
-  <div style="display:table;">
-    <p class="category">Another thing(known width)</p>
-    <p class="description">Something to the right,
-      determines the height of this "&lt;li&gt;"</p>
-  </div>
+<p>Statements are separated by semicolons.</p>
 
+<p>The variables x, y, and z are assigned the values 5, 6, and 11:</p>
+
+<p id="demo"></p>
+
+<script>
+var x = 5;
+var y = 6;
+var z = x + y;
+document.getElementById("demo").innerHTML = z;
+</script>
 
 </body>
 </html>

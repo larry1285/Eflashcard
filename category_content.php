@@ -74,12 +74,11 @@ if (mysqli_num_rows($result_sql_select_all_categories) > 0) {
   while($row = mysqli_fetch_assoc($result_sql_select_all_categories)) {
     echo ' 
              <tr>
-               <td style="width:50%">'.$row["card_name"].'</td>
-               <td style="width:50%">'.$row["card_content"].'</td>
-               <td valign="top"><button><span class="glyphicon glyphicon-pencil"></span></button></td>
+               <td valign="top" style="width:50%" id="'.$category_name.'_'.$row["id"].'_1">'.$row["card_name"].'</td>
+               <td valign="top" style="width:50%" id="'.$category_name.'_'.$row["id"].'_2">'.$row["card_content"].'</td>
+               <td valign="top"><button onclick="edit_content('."'$category_name'".','."'$row[card_name]'".','."'$row[card_content]'".','."$row[id]".')"><span class="glyphicon glyphicon-pencil"></span></button></td>
              </tr>
-
-    ' ;
+         ' ;
   }
   echo '</table>';
 } else {
@@ -87,7 +86,15 @@ if (mysqli_num_rows($result_sql_select_all_categories) > 0) {
 }
 ?>
 
+  
+  
+  
+  
+  
 </div>
+
+
+  
 </body>
 </html>
 
