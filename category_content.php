@@ -87,14 +87,17 @@ if (mysqli_num_rows($result_sql_select_all_categories) > 0) {
 ?>
 
   
-  
-  
-  
-  
+  <button id="myBtn">Try it</button> 
+  <p id="demo"></p>
 </div>
+<script>
+  document.addEventListener("click", mouse_click);
+  var current_name_textarea_id="myBtn";
+  var current_content_textarea_id="myBtn";
 
+
+</script>
 
   
 </body>
 </html>
-
