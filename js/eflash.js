@@ -1,4 +1,4 @@
-var textarea_index=1; // 1 represent that user's mouse is not over current textarea ps: should use a better resolution.
+var textarea_index=0; // 1 represent that user's mouse is not over current textarea ps: should use a better resolution.
 
 
 function mouse_click()
@@ -11,7 +11,11 @@ function mouse_click()
   current_content_textarea.addEventListener("mouseover", over_textarea_change_textarea_index);
   current_content_textarea.addEventListener("mouseout", outside_textarea_change_textarea_index);  
   if (textarea_index==0) {console.log("inside textarea,clicked!");}
-  else if(textarea_index==1){console.log("outside textarea,clicked!");}
+  else if(textarea_index==1)
+  {
+    document.getElementById("edit_form").submit();
+    console.log("outside textarea,clicked!");
+  }
   
 }
 
@@ -64,10 +68,24 @@ function edit_content(category_name,card_name,card_content,category_row_id)
   var current_card_name=document.getElementById(category_name+'_'+category_row_id+'_1');
   var current_card_content=document.getElementById(category_name+'_'+category_row_id+'_2');
   
-    current_name_textarea_id="textarea_"+category_name+"_"+category_row_id+"_1";
+  current_name_textarea_id="textarea_"+category_name+"_"+category_row_id+"_1";
   current_content_textarea_id="textarea_"+category_name+"_"+category_row_id+"_2";
   
-  current_card_name.innerHTML=("<textarea id="+'"'+current_name_textarea_id+'"'+" onkeyup='adjustheight(this)' >"+card_name+"</textarea>"); 
-  current_card_content.innerHTML=("<textarea id="+'"'+current_content_textarea_id+'"'+" onkeyup='adjustheight(this)' >"+card_content+"</textarea>");  
+  current_card_name.innerHTML=(
+    '<form action="category_content.php?"  method="get" id="edit_form">'+
+      "<textarea id="+'"'+current_name_textarea_id+'"'+" onkeyup='adjustheight(this)' form='edit_form'       name='edit_name_textarea'>"+card_name+
+      "</textarea>"+
+      '<input type="hidden" name="category_name" value="'+category_name+'">'+
+      '<input type="hidden" name="card_id" value="'+category_row_id+'">'
+  ); 
+// </form> is added by browser automatically 
+  current_card_content.innerHTML=(
+    "<textarea id="+'"'+current_content_textarea_id+'"'+" onkeyup='adjustheight(this)' form='edit_form'       name='edit_content_textarea'>"+card_content+"</textarea>"+
+    '<input type="hidden" form="edit_form" name="edit_submit" value="submit" > '//fake submit
+  );  
   
+    
 }
+
+
+

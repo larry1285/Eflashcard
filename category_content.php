@@ -17,7 +17,7 @@
 <?php include "includes/nav.html"; ?>
 <div class="container">
 <?php  //create table and insert user's data if sumbit button is clicked
-global $connection;
+
 $category_name=$_GET['category_name'];
 echo '
 <div>
@@ -61,7 +61,18 @@ if(isset($_GET['category_submit'])){
     die('QUERY FAILED'.mysqli_error($connection));
   }
 }
-else{
+else if(isset($_GET['edit_submit']))//category_content.php
+{
+  $category_name_to_be_edited=$_GET['category_name'];
+  $card_id_to_be_edited=$_GET['card_id'];
+  $new_card_name=$_GET['edit_name_textarea'];
+  $new_card_content=$_GET['edit_content_textarea'];
+  echo 'category_name_to_be_edited='.$category_name_to_be_edited;
+//  echo 'card_id_to_be_edited='+$card_id_to_be_edited+'<br>';
+//  echo 'new_card_name='+$new_card_name+'<br>';
+//  echo 'new_card_content='+$new_card_content+'<br>';
+}
+else{ 
   //echo"category_submit failed";
 }
 ?>
