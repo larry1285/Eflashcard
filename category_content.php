@@ -63,14 +63,24 @@ if(isset($_GET['category_submit'])){
 }
 else if(isset($_GET['edit_submit']))//category_content.php
 {
+  global $connection;
   $category_name_to_be_edited=$_GET['category_name'];
   $card_id_to_be_edited=$_GET['card_id'];
   $new_card_name=$_GET['edit_name_textarea'];
   $new_card_content=$_GET['edit_content_textarea'];
-  echo 'category_name_to_be_edited='.$category_name_to_be_edited;
-//  echo 'card_id_to_be_edited='+$card_id_to_be_edited+'<br>';
-//  echo 'new_card_name='+$new_card_name+'<br>';
-//  echo 'new_card_content='+$new_card_content+'<br>';
+//  echo 'category_name_to_be_edited='.$category_name_to_be_edited.'<br>';
+//  echo 'card_id_to_be_edited='.$card_id_to_be_edited.'<br>';
+//  echo 'new_card_name='.$new_card_name.'<br>';
+//  echo 'new_card_content='.$new_card_content.'<br>';
+  $sql_update_category="
+    UPDATE {$category_name_to_be_edited}
+    SET card_name='{$new_card_name}', card_content='{$new_card_content}'
+    WHERE id={$card_id_to_be_edited}
+  ";
+  $result_sql_update_category=mysqli_query($connection,$sql_update_category);
+  if($result_sql_update_category){echo 'update query SUCCEEDED';}
+  else {echo 'update query FAILED';echo"error".mysqli_error($connection);}
+  
 }
 else{ 
   //echo"category_submit failed";
