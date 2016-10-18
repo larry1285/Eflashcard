@@ -26,6 +26,15 @@ echo '
 if(isset($_GET['category_submit'])){
   $card1_name=$_GET['card1_name'];
   $card1_content=$_GET['card1_content'];
+  //*************testing****************
+  
+  echo "card1_content=$card1_content".'<br>';
+  
+  $card1_content = str_replace(PHP_EOL, '%0D%0A', $card1_content);
+  
+  echo "card1_content=$card1_content".'<br>';
+  
+  //*************testing****************
   if($card1_name=="" || empty($card1_name)){
     $card1_name="empty";
   }
@@ -40,8 +49,8 @@ if(isset($_GET['category_submit'])){
       //echo "Table not  exists";
       $query = "CREATE TABLE {$category_name} ( 
       id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
-      card_name VARCHAR(255) NOT NULL,
-      card_content VARCHAR(30)
+      card_name VARCHAR(2047) NOT NULL,
+      card_content VARCHAR(2047)
       )";
 
       $create_category_query = mysqli_query($connection,$query);
@@ -63,15 +72,29 @@ if(isset($_GET['category_submit'])){
 }
 else if(isset($_GET['edit_submit']))//category_content.php
 {
+
   global $connection;
   $category_name_to_be_edited=$_GET['category_name'];
   $card_id_to_be_edited=$_GET['card_id'];
   $new_card_name=$_GET['edit_name_textarea'];
   $new_card_content=$_GET['edit_content_textarea'];
+
 //  echo 'category_name_to_be_edited='.$category_name_to_be_edited.'<br>';
 //  echo 'card_id_to_be_edited='.$card_id_to_be_edited.'<br>';
 //  echo 'new_card_name='.$new_card_name.'<br>';
 //  echo 'new_card_content='.$new_card_content.'<br>';
+
+  //*************testing****************
+  
+  
+  $new_card_content = str_replace(PHP_EOL, '%0D%0A', $new_card_content);
+  
+  echo "new_card_content=$new_card_content".'<br>';
+  
+  //*************testing****************
+  
+  
+  
   $sql_update_category="
     UPDATE {$category_name_to_be_edited}
     SET card_name='{$new_card_name}', card_content='{$new_card_content}'
@@ -93,11 +116,13 @@ $result_sql_select_all_categories=mysqli_query($connection,$sql_select_all_categ
 if (mysqli_num_rows($result_sql_select_all_categories) > 0) {
   echo ' <table style="width:100%">';
   while($row = mysqli_fetch_assoc($result_sql_select_all_categories)) {
+    $card_content=$row["card_content"];
+    $card_content = str_replace('%0D%0A', '&#13;&#10;', $card_content);
     echo ' 
              <tr>
-               <td valign="top" style="width:50%" id="'.$category_name.'_'.$row["id"].'_1">'.$row["card_name"].'</td>
-               <td valign="top" style="width:50%" id="'.$category_name.'_'.$row["id"].'_2">'.$row["card_content"].'</td>
-               <td valign="top"><button onclick="edit_content('."'$category_name'".','."'$row[card_name]'".','."'$row[card_content]'".','."$row[id]".')"><span class="glyphicon glyphicon-pencil"></span></button></td>
+               <td valign="top" style="width:40%;white-space:pre;" id="'.$category_name.'_'.$row["id"].'_1">'.$row["card_name"].'</td>
+               <td valign="top" style="width:40%;white-space:pre;" id="'.$category_name.'_'.$row["id"].'_2">'.$card_content.'</td>
+               <td valign="top" style="width:20%"><button onclick="edit_content('."'$category_name'".','."'$row[card_name]'".','."'$row[card_content]'".','."$row[id]".')"><span class="glyphicon glyphicon-pencil"></span></button></td>
              </tr>
          ' ;
   }
