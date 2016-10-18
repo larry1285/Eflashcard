@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/eflash.js"></script>
+</head>
 <body>
 
-<p>Click the button to trigger a function that will output "Hello World" in a p element with id="demo".</p>
-
-
-<button onclick="myFunction('asda%0D%0Aasdasd')">Click me</button>
-
-
-<p id="demo"></p>
-<textarea id="demo2"></textarea>
+<div id="div1">
+<p id="p1">This is a paragraph.</p>
+<p id="p2">This is another paragraph.</p>
+  <textarea cols="30" rows="4" onkeyup="InputAdjust(this)" id="card1_name"></textarea>
+</div>
 
 <script>
-function myFunction(asd) {
-    var res= asd.replace(/<br>/g, '&#13;&#10;');
-    //var res = asd.replace("<br>", "&#13;&#10;");
-    console.log(res);
-    //res = res.replace('"', '\"');
-    document.getElementById("demo").innerHTML = asd;
-    document.getElementById("demo2").innerHTML = res;
-}
+var para = document.createElement("TEXTAREA");
+
+para.setAttribute('cols', '30');
+para.setAttribute('rows', '4');
+para.setAttribute('onkeyup', 'InputAdjust(this)');
+para.setAttribute('id', 'card1_content');
+var node = document.createTextNode( "This is new." );
+para.appendChild(node);
+var element = document.getElementById("div1");
+element.appendChild(para);
 </script>
 
 </body>

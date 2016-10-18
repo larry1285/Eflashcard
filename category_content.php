@@ -15,7 +15,7 @@
 <?php include "includes/db.php"; ?>
   
 <?php include "includes/nav.html"; ?>
-<div class="container">
+<div class="container"> 
 <?php  //create table and insert user's data if sumbit button is clicked
 
 $category_name=$_GET['category_name'];
@@ -23,6 +23,7 @@ echo '
 <div>
   <h1 class="category_heaer">'.$category_name.'</h1>
 </div>';
+echo  " <button onclick=\"location.href = 'createcard.php'\" >Home</button> ";
 if(isset($_GET['category_submit'])){
   $card1_name=$_GET['card1_name'];
   $card1_content=$_GET['card1_content'];
@@ -120,11 +121,11 @@ if (mysqli_num_rows($result_sql_select_all_categories) > 0) {
     $card_content = str_replace('%0D%0A', '&#13;&#10;', $card_content);
     echo ' 
              <tr>
-               <td valign="top" style="width:40%;white-space:pre;" id="'.$category_name.'_'.$row["id"].'_1">'.$row["card_name"].'</td>
-               <td valign="top" style="width:40%;white-space:pre;" id="'.$category_name.'_'.$row["id"].'_2">'.$card_content.'</td>
+               <td valign="top" style="width:40%;white-space:pre;background-color:white;" id="'.$category_name.'_'.$row["id"].'_1">'.$row["card_name"].'</td>
+               <td valign="top" style="width:40%;white-space:pre;background-color:white;" id="'.$category_name.'_'.$row["id"].'_2">'.$card_content.'</td>
                <td valign="top" style="width:20%"><button onclick="edit_content('."'$category_name'".','."'$row[card_name]'".','."'$row[card_content]'".','."$row[id]".')"><span class="glyphicon glyphicon-pencil"></span></button></td>
              </tr>
-         ' ;
+         ';
   }
   echo '</table>';
 } else {
@@ -132,9 +133,6 @@ if (mysqli_num_rows($result_sql_select_all_categories) > 0) {
 }
 ?>
 
-  
-  <button id="myBtn">Try it</button> 
-  <p id="demo"></p>
 </div>
 <script>
   document.addEventListener("click", mouse_click);

@@ -1,3 +1,5 @@
+var total_input=1;
+
 var textarea_index=0; // 1 represent that user's mouse is not over current textarea ps: should use a better resolution.
 
 
@@ -38,13 +40,21 @@ function outside_textarea_change_textarea_index()
 
 function InputAdjust(o) 
 {
-    console.log("fuck my life");
-    document.getElementById("card1_name").style.height ="100px"; // this line cannot be neglected!! but why??
-    document.getElementById("card1_content").style.height ="100px"; // this line cannot be neglected!! but why??
+    
+    var input_id=o.id
+    var number=input_id.replace(/[^0-9]/g,'');
+//    console.log("number="+number); 
+    var current_name_id="card"+number+"_name";
+//    console.log("current_name_id="+current_name_id);
+    var current_content_id="card"+number+"_content";
+//    console.log("current_name_id="+current_name_id);
+  
+    document.getElementById(current_name_id).style.height ="100px"; // this line cannot be neglected!! but why??
+    document.getElementById(current_content_id).style.height ="100px"; // this line cannot be neglected!! but why??
     var max_scrollHeight =
-        Math.max(document.getElementById("card1_name").scrollHeight,document.getElementById("card1_content").scrollHeight);
-    document.getElementById("card1_name").style.height =max_scrollHeight+ 'px';
-    document.getElementById("card1_content").style.height =max_scrollHeight +'px';
+        Math.max(document.getElementById(current_name_id).scrollHeight,document.getElementById(current_content_id).scrollHeight);
+    document.getElementById(current_name_id).style.height =max_scrollHeight+ 'px';
+    document.getElementById(current_content_id).style.height =max_scrollHeight +'px';
 }
 
 
@@ -100,6 +110,61 @@ function edit_content(category_name,card_name,card_content,category_row_id)
   //question
    //adjustheight(current_content_textarea_id);  
 
+}
+
+
+
+function add_more_input()
+{
+  total_input=total_input+1;
+  //declaration
+  
+  var new_name_textarea = document.createElement("TEXTAREA");
+  var new_content_textarea = document.createElement("TEXTAREA");
+  var br_tag=document.createElement("BR");
+  
+  var new_input_name_id='card'+total_input+"_name";
+  var new_input_content_id='card'+total_input+"_content";
+  var new_input_name_name=new_input_name_id;
+  var new_input_content_name=new_input_content_id;
+  
+  //add new_name_teextarea
+
+  new_name_textarea.setAttribute('cols', '110');
+  new_name_textarea.setAttribute('rows', '4');
+  new_name_textarea.setAttribute('onkeyup', 'InputAdjust(this)');
+  new_name_textarea.setAttribute('name', new_input_name_name);
+  new_name_textarea.setAttribute('id', new_input_name_id);
+  new_name_textarea.setAttribute('form','input_form');
+  
+  var name_node = document.createTextNode( "" );
+  new_name_textarea.appendChild(name_node);
+  
+  var input_section = document.getElementById("input_section");
+  input_section.appendChild(new_name_textarea);  
+  
+  
+  //add new_content_teextarea
+
+  new_content_textarea.setAttribute('cols', '110');
+  new_content_textarea.setAttribute('rows', '4');
+  new_content_textarea.setAttribute('onkeyup', 'InputAdjust(this)');
+  new_content_textarea.setAttribute('name', new_input_content_name);
+  new_content_textarea.setAttribute('id', new_input_content_id);
+  new_content_textarea.setAttribute('form','input_form');
+  
+  var content_node = document.createTextNode( "" );
+  new_name_textarea.appendChild(content_node);
+  
+  input_section.appendChild(new_content_textarea);  
+  
+  //add br tag
+  input_section.appendChild(br_tag);  
+  
+  
+  console.log("success!");
+  
+    
 }
 
 

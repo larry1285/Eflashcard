@@ -34,9 +34,11 @@
     
     <div style="padding-left:15px;">
       <textarea rows="4" cols="110" id="card1_name" name="card1_name" form="category_form" onkeyup="InputAdjust(this)"></textarea>
-      <textarea rows="4" cols="110" id="card1_content" name="card1_content" form="category_form" style="position:relative;left:-5px;" onkeyup="InputAdjust(this)"></textarea>   
+      <textarea rows="4" cols="110" id="card1_content" name="card1_content" form="category_form" style="position:relative;left:-5px;" onkeyup="InputAdjust(this)"></textarea>
+       
       <input type="submit" value="Submit" name="category_submit">
     </div>   
+    <>
     
       
       
