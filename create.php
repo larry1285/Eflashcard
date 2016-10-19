@@ -38,7 +38,7 @@
        
       <input type="submit" value="Submit" name="category_submit">
     </div>   
-    <>
+
     
       
       

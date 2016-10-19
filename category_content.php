@@ -140,7 +140,7 @@ if (mysqli_num_rows($result_sql_select_all_categories) > 0) {
   var current_content_textarea_id="myBtn";
 
 
-</script>
+</script> 
 
   
 </body>

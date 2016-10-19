@@ -41,7 +41,7 @@
   <br>
   <input type="submit" value="Submit" name="category_submit" form="category_form">   
 </div>
-                                                                                         
+                                                                                          
 </div>
 </body>
 </html>
