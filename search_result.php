@@ -22,7 +22,8 @@
     while ($row = mysqli_fetch_row($result_all_table_sql)) {
       $search_text=$_GET['search_text'];
       $search_query="SELECT * FROM $row[0]
-                     WHERE card_content LIKE '%".$search_text."%'";
+                     WHERE card_content LIKE '%".$search_text."%'
+                     OR card_name LIKE '%".$search_text."%'";
       $result_search_query=mysqli_query($connection,$search_query);
       if($result_search_query){
         if (mysqli_num_rows($result_search_query) > 0) {
