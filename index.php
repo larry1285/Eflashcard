@@ -27,11 +27,11 @@
   }
   ?>
 </div>
-<!--
-<script type="text/javascript">
-    document.getElementById("myButton").onclick = function () {
-        location.href = "www.yoursite.com";
-    };
+<script>
+function send_search_form(){
+  document.getElementById("search_form").submit();  
+}
+
 </script>
 -->
 </body>

@@ -130,7 +130,7 @@ function add_more_input()
   
   //add new_name_teextarea
 
-  new_name_textarea.setAttribute('cols', '110');
+  new_name_textarea.setAttribute('style', 'width:30%');
   new_name_textarea.setAttribute('rows', '4');
   new_name_textarea.setAttribute('onkeyup', 'InputAdjust(this)');
   new_name_textarea.setAttribute('name', new_input_name_name);
@@ -146,7 +146,7 @@ function add_more_input()
   
   //add new_content_teextarea
 
-  new_content_textarea.setAttribute('cols', '110');
+  new_content_textarea.setAttribute('style', 'width:30%');
   new_content_textarea.setAttribute('rows', '4');
   new_content_textarea.setAttribute('onkeyup', 'InputAdjust(this)');
   new_content_textarea.setAttribute('name', new_input_content_name);

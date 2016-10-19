@@ -18,7 +18,12 @@
 <div class="container"> 
 <?php  //create table and insert user's data if sumbit button is clicked
 
-$category_name=$_GET['category_name'];
+$category_name="";  
+if(isset($_GET['category_name']))
+{
+  $category_name=$_GET['category_name'];
+}
+
 echo '
 <div>
   <h1 class="category_heaer">'.$category_name.'</h1>
@@ -131,6 +136,16 @@ else if(isset($_GET['input_form_submit']))
   echo 'submit succeed!';
   
 }
+else if(isset($_GET['delete_form_submit']))
+{
+  $card_id=$_GET['card_id'];
+  $delete_query="DELETE FROM $category_name
+WHERE id=$card_id;";
+  $result_delete=mysqli_query($connection,$delete_query);
+  
+  if($result_delete){echo 'delete query SUCCEEDED';}
+  else {echo 'delete query FAILED';echo"error".mysqli_error($connection);}
+}
 else{ 
   //echo"category_submit failed";
 }
@@ -145,11 +160,19 @@ if (mysqli_num_rows($result_sql_select_all_categories) > 0) {
     $card_content=$row["card_content"];
     $card_content = str_replace('%0D%0A', '&#13;&#10;', $card_content);
     echo ' 
-             <tr>
-               <td valign="top" style="width:40%;white-space:pre;background-color:white;" id="'.$category_name.'_'.$row["id"].'_1">'.$row["card_name"].'</td>
-               <td valign="top" style="width:40%;white-space:pre;background-color:white;" id="'.$category_name.'_'.$row["id"].'_2">'.$card_content.'</td>
-               <td valign="top" style="width:20%"><button onclick="edit_content('."'$category_name'".','."'$row[card_name]'".','."'$row[card_content]'".','."$row[id]".')"><span class="glyphicon glyphicon-pencil"></span></button></td>
-             </tr>
+           <tr>
+             <td valign="top" style="width:40%;white-space:pre;background-color:white; height:100px;" id="'.$category_name.'_'.$row["id"].'_1">'.$row["card_name"].'</td>
+             <td valign="top" style="width:40%;white-space:pre;background-color:white;height:100px;" id="'.$category_name.'_'.$row["id"].'_2">'.$card_content.'</td>
+             <td valign="top" style="width:20%">
+             <form action="category_content.php" method="GET" id="delete_form'."$row[id]".'" >
+               <input type="hidden" name="category_name" value='."'$category_name'".'>
+               <input type="hidden" name="card_id" value='."$row[id]".'>
+               <input type="hidden" name="delete_form_submit" value="Submit">
+             </form>
+             <button onclick="edit_content('."'$category_name'".','."'$row[card_name]'".','."'$row[card_content]'".','."$row[id]".')"><span class="glyphicon glyphicon-pencil"></span></button>
+             <button onclick="send_delete_form('."$row[id]".')"><span class="glyphicon glyphicon-remove"><span></button>
+             </td>
+           </tr>
          ';
   }
   echo '</table>';
@@ -161,10 +184,17 @@ if (mysqli_num_rows($result_sql_select_all_categories) > 0) {
 </div>
 <script>
   document.addEventListener("click", mouse_click);
+  var textarea_mode=0;
   var current_name_textarea_id="myBtn";
-  var current_content_textarea_id="myBtn";
-
-
+  var current_content_textsarea_id="myBtn";
+  function send_delete_form(card_id)
+  {
+    var result = confirm("Are u sure u want to delete me bro?");
+    if(result){
+      var delete_form="delete_form"+card_id;
+      document.getElementById(delete_form).submit();
+    }
+  }
 </script>
 
   
