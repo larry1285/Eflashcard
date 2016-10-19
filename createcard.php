@@ -29,6 +29,7 @@
     <form action="category_content.php" id="input_form" method='get'></form>
     <textarea rows="4" cols="110" id="card1_name" name="card1_name" form="input_form" onkeyup="InputAdjust(this)"></textarea>
     <textarea rows="4" cols="110" id="card1_content" name="card1_content" form="input_form" style="position:relative;left:-5px;" onkeyup="InputAdjust(this)"></textarea>
+    <?php  $category_name=$_GET['category_name']; echo "<input type=\"hidden\" name=\"category_name\" value=\"$category_name\" form=\"input_form\"> " ?>
     <br>
     
   </div>
@@ -39,9 +40,9 @@
   <button onclick="add_more_input()" style="width:72.5%;height:70px;"><span class="glyphicon glyphicon-plus"></span></button>
   <br>
   <br>
-  <input type="submit" value="Submit" name="category_submit" form="category_form">   
+  <input type="submit" value="Submit" name="input_form_submit" form="input_form">   
 </div>
-                                                                                          
+                                                                                         
 </div>
 </body>
 </html>

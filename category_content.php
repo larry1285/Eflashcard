@@ -23,7 +23,10 @@ echo '
 <div>
   <h1 class="category_heaer">'.$category_name.'</h1>
 </div>';
-echo  " <button onclick=\"location.href = 'createcard.php'\" >Home</button> ";
+echo  "<form action=\"createcard.php\">
+         <input type=\"submit\" value=\"新增字卡\" name=\"add_input_submit\"><br><br>
+         <input type=\"hidden\" name=\"category_name\" value=\"$category_name\">
+       </form>";
 if(isset($_GET['category_submit'])){
   $card1_name=$_GET['card1_name'];
   $card1_content=$_GET['card1_content'];
@@ -106,6 +109,28 @@ else if(isset($_GET['edit_submit']))//category_content.php
   else {echo 'update query FAILED';echo"error".mysqli_error($connection);}
   
 }
+else if(isset($_GET['input_form_submit']))
+{
+  $input_count=1;
+  while(isset($_GET['card'.$input_count.'_name']))
+  {
+    
+    $current_card_name=$_GET['card'.$input_count.'_name'];
+    $current_card_content=$_GET['card'.$input_count.'_content'];
+      
+    $insert_query = "INSERT INTO {$category_name} (card_name,card_content)
+      VALUES ('$current_card_name','$current_card_content')";
+    
+    $result_insert_category=mysqli_query($connection,$insert_query);
+    if($result_insert_category){echo 'insert query SUCCEEDED';}
+    else {echo 'insert query FAILED';echo"error".mysqli_error($connection);}
+    
+    $input_count=$input_count+1;
+    
+  }
+  echo 'submit succeed!';
+  
+}
 else{ 
   //echo"category_submit failed";
 }
@@ -140,7 +165,7 @@ if (mysqli_num_rows($result_sql_select_all_categories) > 0) {
   var current_content_textarea_id="myBtn";
 
 
-</script> 
+</script>
 
   
 </body>
