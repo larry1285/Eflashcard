@@ -67,13 +67,25 @@ if(isset($_GET['category_submit'])){
       if(!$create_category_query){
         die('QUERY FAILED'.mysqli_error($connection));
       }
+      
+      //**insert card to corresponding category
+      
       $query = "INSERT INTO {$category_name} (card_name,card_content)
       VALUES ('$card1_name','$card1_content')";
 
       $insert_first_card_of_the_category=mysqli_query($connection,$query);
-      if(!$create_category_query){
-        die('QUERY FAILED'.mysqli_error($connection));
+      if(!$insert_first_card_of_the_category){
+        die('QUERY FAILED'.mysqli_error($connection)); 
       }  
+      //**also insert this to admin_db
+      
+      $insert_card_to_admin_db_query = "INSERT INTO admin_db (card_name,card_content)
+      VALUES ('$card1_name','$card1_content')";
+
+      $result_insert_card_to_admin_db_query=mysqli_query($connection,$insert_card_to_admin_db_query);
+      if(!$result_insert_card_to_admin_db_query){
+        die('QUERY FAILED'.mysqli_error($connection)); 
+      }      
     }
   }else{
     die('QUERY FAILED'.mysqli_error($connection));
@@ -120,6 +132,8 @@ else if(isset($_GET['input_form_submit']))
   while(isset($_GET['card'.$input_count.'_name']))
   {
     
+    //insert card to corresponding category
+    
     $current_card_name=$_GET['card'.$input_count.'_name'];
     $current_card_content=$_GET['card'.$input_count.'_content'];
       
@@ -130,6 +144,17 @@ else if(isset($_GET['input_form_submit']))
     if($result_insert_category){echo 'insert query SUCCEEDED';}
     else {echo 'insert query FAILED';echo"error".mysqli_error($connection);}
     
+    //**also insert this to admin_db
+    $insert_card_to_admin_db_query = "INSERT INTO admin_db (card_name,card_content)
+    VALUES ('$current_card_name','$current_card_content')";
+
+    $result_insert_card_to_admin_db_query=mysqli_query($connection,$insert_card_to_admin_db_query);
+    if(!$result_insert_card_to_admin_db_query){
+      die('QUERY FAILED'.mysqli_error($connection)); 
+    }     
+    
+    
+    //increase index
     $input_count=$input_count+1;
     
   }

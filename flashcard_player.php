@@ -11,39 +11,78 @@
   <script src="js/eflash.js"></script>
 </head>
 <body>
-
+<?php include "includes/db.php"; ?>
 <?php include "includes/nav.html"; ?>
+<?php $player_index=0; ?>
+<form id="player_plus_form">
+  <input type="hidden" name="player_plus_form_submit" value="Submit">
+</form>
+
+<form action="flashcard_player.php" id="player_minus_form">
+  <input type="hidden" name="player_mius_form_submit" value="Submit">
+</form>
+  
+<?php
+  
+  
+  class card
+  {
+    var $card_name;
+    var $card_content;
+    function __construct($a1,$a2) 
+    { 
+      $this->card_name=$a1;
+      $this->card_content=$a2;
+    } 
     
-<div class="container-fluid" style="position:relative; top:-20px;" id="create_background">
-  <row>
-    <div class="col-xs-12">
-      <p style="position:relative; top:10px; font-size:40px;"><strong>建立新字卡集</strong></p>
-      <hr style="size:20px;">
-    </div>
-  </row>
+  }
+  $arrayobj = new ArrayObject();
+    
   
 
-  <form action="category_content.php" id="category_form" method='get'>
-    <row>
-      <div class="col-xs-12">
-        <p style="font-size:40px;"><strong>字卡集標題</strong></p>
-        <input type = "text" class = "form-control" name="category_name" style="width:700px;font-size:60px;" placeholder = "請輸入標題" >
-        <hr>
-      </div>
-    </row>
-    
-    <div style="padding-left:15px;">
-      <textarea rows="4" cols="110" id="card1_name" name="card1_name" form="category_form" onkeyup="InputAdjust(this)"></textarea>
-      <textarea rows="4" cols="110" id="card1_content" name="card1_content" form="category_form" style="position:relative;left:-5px;" onkeyup="InputAdjust(this)"></textarea>
-       
-      <input type="submit" value="Submit" name="category_submit">
-    </div>   
-    
-    
+  
+//  echo '<input name="player_index" type="hidden" form="player_minus_form" value="'.($player_index-1).'">';
+//  echo '<input name="player_index" type="hidden" form="player_plus_form" value="'.($player_index+1).'">';
+  
+//  echo 'card_name='.$arrayobj[$play_index]->card_name.'<br>';
+//  echo 'card_content='.$arrayobj[$play_index]->card_content.'<br>';
+  echo '<p id="player_card_name" style="border-radius: 25px; border: 2px solid #73AD21; padding: 20px; width: 30%; height: 400px;float:left;margin-left:10px;" >
+    asdsad
+  </p> ' ;
+
+  echo '<p id="player_card_content" style="border-radius: 25px; border: 2px solid #73AD21;padding:20px; width: 30%; height: 400px;float:left;margin-left:10px;" >
+    asdsad
+  </p>';  
+  
+  echo '<div style="clear:left;"><button onclick="show_previous_random_card();" style="background-color: Transparent;border: none; font-size: 40px;"><span class="glyphicon glyphicon-circle-arrow-left"></span>
+  <button onclick="show_next_random_card();" class="glyphicon glyphicon-circle-arrow-right" style="background-color: Transparent;border: none;font-size: 40px"></button>
+  <div>';
+
+  
+?>
+  
+<script>
+function show_next_random_card() {
+  var xhttp;
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var responseArray = this.responseText.split("||");
+//        console.log(this.responseText);
+//        console.log(responseArray[1]);
       
-      
-  </form>                                                                                          
-</div>
+      document.getElementById("player_card_name").innerHTML = responseArray[0];
+      document.getElementById("player_card_content").innerHTML = responseArray[1];
+    }
+  };
+  xhttp.open("GET", "random_card.php", true);
+  xhttp.send();
+}
+
+</script>
+
+  
+  
 </body>
 </html>
 

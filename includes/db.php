@@ -17,8 +17,7 @@ if($connection){
 //echo "we are connected" . "<br>";
 
 }
-
+//https://www.youtube.com/watch?v=aAoYaZzWRgw
+//import and export db
 ?>
 
-<!--https://www.youtube.com/watch?v=aAoYaZzWRgw-->
-<!--import and export db-->
