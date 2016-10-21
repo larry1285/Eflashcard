@@ -91,7 +91,7 @@ function edit_content(category_name,card_name,card_content,category_row_id)
   
   current_card_name.innerHTML=(
     '<form action="category_content.php?"  method="get" id="edit_form">'+
-      "<textarea cols='40' id="+'"'+current_name_textarea_id+'"'+" onkeyup='adjustheight(this)' form='edit_form'       name='edit_name_textarea'>"+card_name+
+      "<textarea cols='61' id="+'"'+current_name_textarea_id+'"'+" onkeyup='adjustheight(this)' form='edit_form'       name='edit_name_textarea'>"+card_name+
       "</textarea>"+
       '<input type="hidden" name="category_name" value="'+category_name+'">'+
       '<input type="hidden" name="card_id" value="'+category_row_id+'">'
@@ -102,7 +102,7 @@ function edit_content(category_name,card_name,card_content,category_row_id)
   console.log("predict="+$predicted_current_card_content_height);
   current_card_content.innerHTML=(
     '<form action="category_content.php?"  method="get" id="edit_form">'+
-      "<textarea cols='40' id="+'"'+current_content_textarea_id+'"'+" onkeyup='adjustheight(this)' form='edit_form'       name='edit_content_textarea' style='height:"+$predicted_current_card_content_height+"px'>"+card_content+
+      "<textarea cols='61' id="+'"'+current_content_textarea_id+'"'+" onkeyup='adjustheight(this)' form='edit_form'       name='edit_content_textarea' style='height:"+$predicted_current_card_content_height+"px'>"+card_content+
       "</textarea>"+
     '<input type="hidden" form="edit_form" name="edit_submit" value="submit" > '//fake submit
   );

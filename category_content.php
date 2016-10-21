@@ -112,7 +112,7 @@ else if(isset($_GET['edit_submit']))//category_content.php
   
   
   $new_card_content = str_replace(PHP_EOL, '%0D%0A', $new_card_content);
-  
+  $new_card_content = str_replace("'","\'" , $new_card_content);
   echo "new_card_content=$new_card_content".'<br>';
   
   //*************testing****************
@@ -211,14 +211,15 @@ else{
 $sql_select_all_category_content="SELECT * FROM {$category_name}";
 $result_sql_select_all_categories=mysqli_query($connection,$sql_select_all_category_content);
 if (mysqli_num_rows($result_sql_select_all_categories) > 0) {
-  echo ' <table style="width:100%">';
+  echo ' <table style="width:100%;table-layout: fixed;">';
   while($row = mysqli_fetch_assoc($result_sql_select_all_categories)) {
     $card_content=$row["card_content"];
-    $card_content = str_replace('%0D%0A', '&#13;&#10;', $card_content);
+    $card_content = str_replace('%0D%0A', '<br>', $card_content);
+    $row["card_content"]=str_replace("'", "\'", $row["card_content"]);
     echo ' 
            <tr>
-             <td valign="top" style="width:40%;white-space:pre;background-color:white; height:100px;" id="'.$category_name.'_'.$row["id"].'_1">'.$row["card_name"].'</td>
-             <td valign="top" style="width:40%;white-space:pre;background-color:white;height:100px;" id="'.$category_name.'_'.$row["id"].'_2">'.$card_content.'</td>
+             <td valign="top" style="width:40%;background-color:white; height:100px;word-wrap:break-word" id="'.$category_name.'_'.$row["id"].'_1">'.$row["card_name"].'</td>
+             <td valign="top" style="width:40%;background-color:white;height:100px;word-wrap:break-word;" id="'.$category_name.'_'.$row["id"].'_2">'.$card_content.'</td>
              <td valign="top" style="width:20%">
              <form action="category_content.php" method="GET" id="delete_form'."$row[id]".'" >
                <input type="hidden" name="category_name" value='."'$category_name'".'>
@@ -235,8 +236,8 @@ if (mysqli_num_rows($result_sql_select_all_categories) > 0) {
 } else {
   echo "0 results";
 }
+  
 ?>
-
 </div>
 <script>
   document.addEventListener("click", mouse_click);
