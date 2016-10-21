@@ -149,7 +149,10 @@ else if(isset($_GET['input_form_submit']))
     
     $current_card_name=$_GET['card'.$input_count.'_name'];
     $current_card_content=$_GET['card'.$input_count.'_content'];
-      
+    
+    $current_card_content=str_replace(PHP_EOL, '%0D%0A', $current_card_content);
+    $current_card_content=str_replace("'", "\'", $current_card_content);
+    
     $insert_query = "INSERT INTO {$category_name} (card_name,card_content)
       VALUES ('$current_card_name','$current_card_content')";
 
@@ -194,13 +197,28 @@ else if(isset($_GET['input_form_submit']))
 }
 else if(isset($_GET['delete_form_submit']))
 {
+  $category_name=$_GET['category_name'];
   $card_id=$_GET['card_id'];
+  
+  $card_admin_id=$category_name."_".$card_id;
+  
+  //delete the card from its category
   $delete_query="DELETE FROM $category_name
 WHERE id=$card_id;";
   $result_delete=mysqli_query($connection,$delete_query);
   
   if($result_delete){echo 'delete query SUCCEEDED';}
   else {echo 'delete query FAILED';echo"error".mysqli_error($connection);}
+  
+  //delete the card copy in admin_db
+  
+  $admin_delete_query="DELETE FROM admin_db
+WHERE id='$card_admin_id'";
+  $result_admin_delete_query=mysqli_query($connection,$admin_delete_query);
+  
+  if($result_admin_delete_query){echo 'admin delete query SUCCEEDED';}
+  else {echo 'admin delete query FAILED';echo"error".mysqli_error($connection);}  
+  
 }
 else{ 
   //echo"category_submit failed";
