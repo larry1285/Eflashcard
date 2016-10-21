@@ -79,12 +79,15 @@ if(isset($_GET['category_submit'])){
       }  
       //**also insert this to admin_db
       
-      $insert_card_to_admin_db_query = "INSERT INTO admin_db (card_name,card_content)
-      VALUES ('$card1_name','$card1_content')";
+      $card_admin_id=$category_name ."_1";
+        
+        
+      $insert_card_to_admin_db_query = "INSERT INTO admin_db (id,card_name,card_content)
+      VALUES ('$card_admin_id','$card1_name','$card1_content')";
 
       $result_insert_card_to_admin_db_query=mysqli_query($connection,$insert_card_to_admin_db_query);
       if(!$result_insert_card_to_admin_db_query){
-        die('QUERY FAILED'.mysqli_error($connection)); 
+        die('QUERY FAILasdED'.mysqli_error($connection)); 
       }      
     }
   }else{
@@ -125,6 +128,16 @@ else if(isset($_GET['edit_submit']))//category_content.php
   if($result_sql_update_category){echo 'update query SUCCEEDED';}
   else {echo 'update query FAILED';echo"error".mysqli_error($connection);}
   
+  $card_admin_id=$category_name_to_be_edited."_".$card_id_to_be_edited;
+  $sql_admin_update_category="
+    UPDATE admin_db
+    SET card_name='{$new_card_name}', card_content='{$new_card_content}'
+    WHERE id='{$card_admin_id}'
+  ";  
+  $result_sql_admin_update_category=mysqli_query($connection,$sql_admin_update_category);
+  if($result_sql_admin_update_category){echo 'update query SUCCEEDED';}
+  else {echo 'update query FAILED';echo"error".mysqli_error($connection);}
+  
 }
 else if(isset($_GET['input_form_submit']))
 {
@@ -139,14 +152,32 @@ else if(isset($_GET['input_form_submit']))
       
     $insert_query = "INSERT INTO {$category_name} (card_name,card_content)
       VALUES ('$current_card_name','$current_card_content')";
+
     
     $result_insert_category=mysqli_query($connection,$insert_query);
     if($result_insert_category){echo 'insert query SUCCEEDED';}
     else {echo 'insert query FAILED';echo"error".mysqli_error($connection);}
     
+    //select the max id in the category
+    
+    $max_id=0;
+    $sql_select_max_id="SELECT * from {$category_name} ORDER BY id DESC LIMIT 1";
+    $result_sql_select_max_id = mysqli_query($connection,$sql_select_max_id);
+    if($result_sql_select_max_id){echo '$sql_select_max_id SUCCEEDED';}
+    else {echo '$sql_select_max_id FAILED';echo"error".mysqli_error($connection);} 
+    
+    while ($row = mysqli_fetch_assoc($result_sql_select_max_id)) 
+    {
+      $max_id=$row['id'];
+
+    }
+     
+    
+    
     //**also insert this to admin_db
-    $insert_card_to_admin_db_query = "INSERT INTO admin_db (card_name,card_content)
-    VALUES ('$current_card_name','$current_card_content')";
+    $card_admin_id=$category_name."_".$max_id;
+    $insert_card_to_admin_db_query = "INSERT INTO admin_db (id,card_name,card_content)
+    VALUES ('$card_admin_id','$current_card_name','$current_card_content')";
 
     $result_insert_card_to_admin_db_query=mysqli_query($connection,$insert_card_to_admin_db_query);
     if(!$result_insert_card_to_admin_db_query){

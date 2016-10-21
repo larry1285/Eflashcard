@@ -46,11 +46,11 @@
   
 //  echo 'card_name='.$arrayobj[$play_index]->card_name.'<br>';
 //  echo 'card_content='.$arrayobj[$play_index]->card_content.'<br>';
-  echo '<p id="player_card_name" style="border-radius: 25px; border: 2px solid #73AD21; padding: 20px; width: 30%; height: 400px;float:left;margin-left:10px;" >
+  echo '<p id="player_card_name" style="valign:top;white-space:pre;border-radius: 25px; border: 2px solid #73AD21; padding: 20px; width: 30%; height: 400px;float:left;margin-left:10px;" >
     asdsad
   </p> ' ;
 
-  echo '<p id="player_card_content" style="border-radius: 25px; border: 2px solid #73AD21;padding:20px; width: 30%; height: 400px;float:left;margin-left:10px;" >
+  echo '<p id="player_card_content" style="valign:top;white-space:pre;border-radius: 25px; border: 2px solid #73AD21;padding:20px; width: 30%; height: 400px;float:left;margin-left:10px;" >
     asdsad
   </p>';  
   
@@ -67,12 +67,17 @@ function show_next_random_card() {
   xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
+//      console.log(this.responseText);
       var responseArray = this.responseText.split("||");
-//        console.log(this.responseText);
-//        console.log(responseArray[1]);
+      var kk=responseArray[2].replace("%0D%0A", "&#13;&#10;");
+      console.log(kk);
+      responseArray[1]=responseArray[1].replace(/%0D%0A/g, "&#13;&#10;");
+      responseArray[2]=responseArray[2].replace(/%0D%0A/g, "&#13;&#10;");
+      console.log(responseArray[1]);
+      console.log(responseArray[2]);
       
-      document.getElementById("player_card_name").innerHTML = responseArray[0];
-      document.getElementById("player_card_content").innerHTML = responseArray[1];
+      document.getElementById("player_card_name").innerHTML = responseArray[1];
+      document.getElementById("player_card_content").innerHTML = responseArray[2];
     }
   };
   xhttp.open("GET", "random_card.php", true);

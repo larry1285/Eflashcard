@@ -2,9 +2,9 @@
   <?php include "includes/db.php"; ?>
   <?php
 
-  // get the q parameter from URL
-  //$q = $_REQUEST["q"];
-  //no input so far
+//   get the q parameter from URL
+//  $q = $_REQUEST["q"];
+//  no input so far
 
     $random_cards_sql = "SELECT * FROM admin_db ORDER BY RAND() LIMIT 10;";
     $result_random_cards_sql = mysqli_query($connection,$random_cards_sql);
@@ -18,6 +18,7 @@
       $card_content=$row["card_content"];
 
     }
+    echo "||";
     echo $card_name;
     echo "||";
     echo $card_content;
