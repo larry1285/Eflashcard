@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
+  <link href='http://netdna.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.css' rel='stylesheet' type='text/css'>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="js//eflash.js"></script>
@@ -17,13 +18,11 @@
 <?php include "includes/nav.html"; ?>
 <div class="container"> 
 <?php  //create table and insert user's data if sumbit button is clicked
-
 $category_name="";  
 if(isset($_GET['category_name']))
 {
   $category_name=$_GET['category_name'];
 }
-
 echo '
 <div>
   <h1 class="category_heaer">'.$category_name.'</h1>
@@ -61,9 +60,7 @@ if(isset($_GET['category_submit'])){
       card_name VARCHAR(2047) NOT NULL,
       card_content VARCHAR(2047)
       )";
-
       $create_category_query = mysqli_query($connection,$query);
-
       if(!$create_category_query){
         die('QUERY FAILED'.mysqli_error($connection));
       }
@@ -72,7 +69,6 @@ if(isset($_GET['category_submit'])){
       
       $query = "INSERT INTO {$category_name} (card_name,card_content)
       VALUES ('$card1_name','$card1_content')";
-
       $insert_first_card_of_the_category=mysqli_query($connection,$query);
       if(!$insert_first_card_of_the_category){
         die('QUERY FAILED'.mysqli_error($connection)); 
@@ -84,7 +80,6 @@ if(isset($_GET['category_submit'])){
         
       $insert_card_to_admin_db_query = "INSERT INTO admin_db (id,card_name,card_content)
       VALUES ('$card_admin_id','$card1_name','$card1_content')";
-
       $result_insert_card_to_admin_db_query=mysqli_query($connection,$insert_card_to_admin_db_query);
       if(!$result_insert_card_to_admin_db_query){
         die('QUERY FAILasdED'.mysqli_error($connection)); 
@@ -96,18 +91,15 @@ if(isset($_GET['category_submit'])){
 }
 else if(isset($_GET['edit_submit']))//category_content.php
 {
-
   global $connection;
   $category_name_to_be_edited=$_GET['category_name'];
   $card_id_to_be_edited=$_GET['card_id'];
   $new_card_name=$_GET['edit_name_textarea'];
   $new_card_content=$_GET['edit_content_textarea'];
-
 //  echo 'category_name_to_be_edited='.$category_name_to_be_edited.'<br>';
 //  echo 'card_id_to_be_edited='.$card_id_to_be_edited.'<br>';
 //  echo 'new_card_name='.$new_card_name.'<br>';
 //  echo 'new_card_content='.$new_card_content.'<br>';
-
   //*************testing****************
   
   
@@ -155,7 +147,6 @@ else if(isset($_GET['input_form_submit']))
     
     $insert_query = "INSERT INTO {$category_name} (card_name,card_content)
       VALUES ('$current_card_name','$current_card_content')";
-
     
     $result_insert_category=mysqli_query($connection,$insert_query);
     if($result_insert_category){echo 'insert query SUCCEEDED';}
@@ -172,7 +163,6 @@ else if(isset($_GET['input_form_submit']))
     while ($row = mysqli_fetch_assoc($result_sql_select_max_id)) 
     {
       $max_id=$row['id'];
-
     }
      
     
@@ -181,7 +171,6 @@ else if(isset($_GET['input_form_submit']))
     $card_admin_id=$category_name."_".$max_id;
     $insert_card_to_admin_db_query = "INSERT INTO admin_db (id,card_name,card_content)
     VALUES ('$card_admin_id','$current_card_name','$current_card_content')";
-
     $result_insert_card_to_admin_db_query=mysqli_query($connection,$insert_card_to_admin_db_query);
     if(!$result_insert_card_to_admin_db_query){
       die('QUERY FAILED'.mysqli_error($connection)); 
@@ -230,24 +219,35 @@ $sql_select_all_category_content="SELECT * FROM {$category_name}";
 $result_sql_select_all_categories=mysqli_query($connection,$sql_select_all_category_content);
 if (mysqli_num_rows($result_sql_select_all_categories) > 0) {
   echo ' <table style="width:100%;table-layout: fixed;">';
-  while($row = mysqli_fetch_assoc($result_sql_select_all_categories)) {
+  while($row = mysqli_fetch_assoc($result_sql_select_all_categories)) 
+  {
+    
     $card_content=$row["card_content"];
     $card_content = str_replace('%0D%0A', '<br>', $card_content);
     $row["card_content"]=str_replace("'", "\'", $row["card_content"]);
+    $row["card_content"]=str_replace('"', '&quot', $row["card_content"]);
+    $tool_bar_id=$category_name."_".$row["id"]."_toolbar";
+
+    
     echo ' 
-           <tr>
-             <td valign="top" style="width:40%;background-color:white; height:100px;word-wrap:break-word" id="'.$category_name.'_'.$row["id"].'_1">'.$row["card_name"].'</td>
-             <td valign="top" style="width:40%;background-color:white;height:100px;word-wrap:break-word;" id="'.$category_name.'_'.$row["id"].'_2">'.$card_content.'</td>
-             <td valign="top" style="width:20%">
-             <form action="category_content.php" method="GET" id="delete_form'."$row[id]".'" >
-               <input type="hidden" name="category_name" value='."'$category_name'".'>
-               <input type="hidden" name="card_id" value='."$row[id]".'>
-               <input type="hidden" name="delete_form_submit" value="Submit">
-             </form>
-             <button onclick="edit_content('."'$category_name'".','."'$row[card_name]'".','."'$row[card_content]'".','."$row[id]".')"><span class="glyphicon glyphicon-pencil"></span></button>
-             <button onclick="send_delete_form('."$row[id]".')"><span class="glyphicon glyphicon-remove"><span></button>
-             </td>
-           </tr>
+          <tr>
+            <td valign="top" style="width:40%;background-color:white; height:100px;word-wrap:break-word" id="'.$category_name.'_'.$row["id"].'_1">'.$row["card_name"].'</td>
+            <td valign="top" style="width:40%;background-color:white;height:100px;word-wrap:break-word;" id="'.$category_name.'_'.$row["id"].'_2">'.$card_content.'</td>
+            <td valign="top" style="width:20%"> '.'
+               <form action="category_content.php" method="GET" id="delete_form'."$row[id]".'" >
+                 <input type="hidden" name="category_name" value='."'$category_name'".'>
+                 <input type="hidden" name="card_id" value='."$row[id]".'>
+                 <input type="hidden" name="delete_form_submit" value="Submit">
+               </form>
+               <button '.' id='.'"'.$category_name.'_'.$row["id"]."_pencil".'" '.' onclick="edit_content('."'$category_name'".','."'$row[card_name]'".','."'$row[card_content]'".','."$row[id]".')"><span class="glyphicon glyphicon-pencil"></span></button>
+               <button '.' id='.'"'.$category_name.'_'.$row["id"]."_remove".'" onclick="send_delete_form('."$row[id]".')"><span class="glyphicon glyphicon-remove"><span></button>';
+    echo '<div id="'.$tool_bar_id.'" style="display:none;">';
+    include "includes/toolbar.html";
+    echo '</div>';
+    echo '
+  
+            </td>
+          </tr>
          ';
   }
   echo '</table>';
@@ -260,8 +260,13 @@ if (mysqli_num_rows($result_sql_select_all_categories) > 0) {
 <script>
   document.addEventListener("click", mouse_click);
   var textarea_mode=0;
+  var implicit_current_name_textarea_id="myBtn";
+  var implicit_current_content_textarea_id="myBtn";
   var current_name_textarea_id="myBtn";
-  var current_content_textsarea_id="myBtn";
+  var current_content_textarea_id="myBtn";
+  var current_pencil="myBtn";
+  var current_remove="myBtn";
+  var current_tool_bar="myBtn"
   function send_delete_form(card_id)
   {
     var result = confirm("Are u sure u want to delete me bro?");
@@ -271,7 +276,7 @@ if (mysqli_num_rows($result_sql_select_all_categories) > 0) {
     }
   }
 </script>
-
+<script src="js/editor.js"></script>
   
 </body>
 </html>

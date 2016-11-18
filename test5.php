@@ -1,13 +1,28 @@
 <!DOCTYPE html>
 <html>
 <body>
+ ]
+  <div style=" width:40px; border-style: solid;">a</div>
 
-<p>Click the button to parse different strings.</p>
+  <div style="float:left;width:20px;border-style: solid; marign:30px; ">a</div>
 
-<button onclick="add_more_input()">Try it</button>
+
+
 
 <p id="demo"></p>
+<!DOCTYPE html>
+<html>
+<body>
 
+
+<?php
+  $count=0;
+  while($count<3){
+    $apple=0;
+  }
+  echo 'count='.$count;
+?>
+  </body>
 <script>
 function add_more_input() {
     var aa= "addss_109";

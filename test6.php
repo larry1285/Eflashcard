@@ -1,11 +1,29 @@
-class haha
-{
-  var $apple="apple";
-  var $banana="banana";
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+
+<title>Strip editable div markup</title>
+
+<script type="text/javascript">
+function strip(html) {
+    var tempDiv = document.createElement("DIV");
+    tempDiv.innerHTML = html;
+    return tempDiv.innerText;
 }
-$haha1=new haha();
-$haha2=new haha();
-$arrayobj = new ArrayObject();
-$arrayobj->append($haha1);
-$arrayobj->append($haha2);
-echo $arrayobj[0]->apple.$arrayobj[1]->banana.'<br>';
+
+</script>
+</head>
+
+<body>
+
+<div id="editableDiv" contentEditable="true">asd</div>
+
+<input type="button" value="press" onclick="alert(strip(document.getElementById('editableDiv').innerText));" />
+
+</body>
+
+</html>
+<!--  http://codepen.io/erikpukinskis/pen/EjaaMY?editors=101 -->

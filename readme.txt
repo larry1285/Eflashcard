@@ -2,3 +2,5 @@
 在字卡列旁加入修改功能
 在字卡下方加入新增功能
 字卡列美化
+
+http://stackoverflow.com/questions/2903991/how-to-detect-ctrlv-ctrlc-using-javascript

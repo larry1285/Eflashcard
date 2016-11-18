@@ -5,11 +5,10 @@
   <script src="js/eflash.js"></script>
 </head>
 <body>
-
+<font color="red">This is some text!</font>
 <div id="div1">
-<p id="p1">This is a paragraph.</p>
-<p id="p2">This is another paragraph.</p>
-  <textarea cols="30" rows="4" onkeyup="InputAdjust(this)" id="card1_name"></textarea>
+ 
+  <textarea cols="30" rows="4" onkeyup="InputAdjust(this)" id="card1_name" ><div>asdS</div>d<div>a</div>fdf<span style="color:red;"></span>df<></textarea>
 </div>
 
 <script>

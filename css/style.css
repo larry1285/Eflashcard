@@ -97,3 +97,106 @@ h1.category_heaer
   
   background-color:beige;
 }
+
+
+/*editor css*/
+
+
+.toolbar a,
+.fore-wrapper,
+.back-wrapper {
+  border: 1px solid #AAA;
+  background: #FFF;
+  font-family: 'Candal';
+  border-radius: 1px;
+  color: black;
+  padding: 5px;
+  width: 1.5em;
+  margin: -2px;
+  margin-top: 10px;
+  display: inline-block;
+  text-decoration: none;
+  font-size: 30px;
+  
+}
+
+.toolbar a:hover,
+.fore-wrapper:hover,
+.back-wrapper:hover {
+  background: #f2f2f2;
+  border-color: #8c8c8c;
+}
+
+a[data-command='redo'],
+a[data-command='strikeThrough'],
+a[data-command='justifyFull'],
+a[data-command='insertOrderedList'],
+a[data-command='outdent'],
+a[data-command='p'],
+a[data-command='superscript'] {
+  margin-right: 5px;
+  border-radius: 0 3px 3px 0;
+}
+
+a[data-command='undo'],
+.fore-wrapper,
+a[data-command='justifyLeft'],
+a[data-command='insertUnorderedList'],
+a[data-command='indent'],
+a[data-command='h1'],
+a[data-command='subscript'] {
+  border-radius: 3px 0 0 3px;
+}
+
+a.palette-item {
+  height: 1em;
+  border-radius: 3px;
+  margin: 2px;
+  width: 1em;
+  border: 1px solid #ccc ;
+}
+
+a.palette-item:hover {
+  border: 1px solid #CCC;
+  box-shadow: 0 0 3px #333;
+}
+
+.fore-palette,
+.back-palette {
+  display: none;
+}
+
+.fore-wrapper,
+.back-wrapper {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.fore-wrapper:hover .fore-palette,
+.back-wrapper:hover .back-palette {
+  display: block;
+  float: left;
+  position: absolute;
+  padding: 3px;
+  width: 10em;
+  background: #FFF;
+  border: 1px solid #DDD;
+
+  height: 4.4em;
+}
+
+.fore-palette a,
+.back-palette a {
+  background: #FFF;
+  margin-bottom: 2px;
+}
+
+.verticalLine {
+    border-left: thick solid #ff0000;
+    height:200px;
+}
+div.vertical-line{
+  width: 2px; /* Line width */
+  background-color: pink; /* Line color */
+  height: 100%; /* Override in-line if you want specific height. */
+}

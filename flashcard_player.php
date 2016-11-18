@@ -62,7 +62,10 @@
 ?>
   
 <script>
+var play_num=0;
 function show_next_random_card() {
+  play_num=play_num+1;
+  console.log("play_num="+play_num);
   var xhttp;
   xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -74,13 +77,14 @@ function show_next_random_card() {
       responseArray[1]=responseArray[1].replace(/%0D%0A/g, "&#13;&#10;");
       responseArray[2]=responseArray[2].replace(/%0D%0A/g, "&#13;&#10;");
       console.log(responseArray[1]);
-      console.log(responseArray[2]);
+      console.log("playnum=")
+      console.log(this.responseText);
       
       document.getElementById("player_card_name").innerHTML = responseArray[1];
       document.getElementById("player_card_content").innerHTML = responseArray[2];
     }
   };
-  xhttp.open("GET", "random_card.php", true);
+  xhttp.open("GET", "random_card.php?play_num="+play_num, true);
   xhttp.send();
 }
 
