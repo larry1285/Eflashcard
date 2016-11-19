@@ -32,9 +32,11 @@ function mouse_click()
       
       document.getElementById(implicit_current_name_textarea_id).innerHTML=document.getElementById(current_name_textarea_id).innerHTML;      document.getElementById(implicit_current_content_textarea_id).innerHTML=document.getElementById(current_content_textarea_id).innerHTML;
       document.getElementById("edit_form").submit();
+      
       edit_content_flag=false;
       over_toolbar=false;
       click_count=0;
+      
     }
     console.log("outside textarea,clicked!");
   }
@@ -165,9 +167,9 @@ function edit_content(category_name,card_name,card_content,category_row_id)
 
 
 
-function add_more_input()
+function original_add_more_input()
 {
-  total_input=total_input+1;
+
   //declaration
   
   var new_name_textarea = document.createElement("TEXTAREA");
@@ -181,7 +183,7 @@ function add_more_input()
   
   //add new_name_teextarea
 
-  new_name_textarea.setAttribute('style', 'width:30%');
+  new_name_textarea.setAttribute('style', 'width:30%;display:none;');
   new_name_textarea.setAttribute('rows', '4');
   new_name_textarea.setAttribute('onkeyup', 'InputAdjust(this)');
   new_name_textarea.setAttribute('name', new_input_name_name);
@@ -197,7 +199,7 @@ function add_more_input()
   
   //add new_content_teextarea
 
-  new_content_textarea.setAttribute('style', 'width:30%');
+  new_content_textarea.setAttribute('style', 'width:30%;display:none;');
   new_content_textarea.setAttribute('rows', '4');
   new_content_textarea.setAttribute('onkeyup', 'InputAdjust(this)');
   new_content_textarea.setAttribute('name', new_input_content_name);
@@ -217,17 +219,101 @@ function add_more_input()
   
     
 }
-
-
-function make_height_equal()
+function add_more_input()
 {
-   
-   var max_height=Math.max(document.getElementById("editor2").clientHeight,document.getElementById("editor3").clientHeight);
-   document.getElementById("ss").style.height=(max_height+20)+"px";
-   document.getElementById("my_vertical_line").style.height=(max_height+16)+"px";
+  total_input=total_input+1;
+  original_add_more_input();
+  
+  //declaration
+  
+  var new_card=document.createElement("DIV");
+  var new_card_id="card"+total_input;
+  
+  var first_part=document.createElement("DIV");
+  var vertical_line=document.createElement("DIV");
+  var second_part=document.createElement("DIV");
+  
+  var new_name_div = document.createElement("DIV");
+  var new_content_div = document.createElement("DIV");
+  
+  var new_name_div_id='explicit_card'+total_input+"_name";
+  var new_content_div_id='explicit_card'+total_input+"_content";
+  
+  //new_card
+  new_card.setAttribute('id', new_card_id);
+  new_card.setAttribute('style', 'height:220px; width:60%; border-style: groove; float:left; background-color:white;');
+  
+  //first_part
+  first_part.setAttribute('style', 'float:left; width:49.8%;');
+
+  //vertical_line
+  vertical_line.setAttribute('class', 'vertical-line');
+  vertical_line.setAttribute('style', 'width:0.3%;height:100%;  float:left; background-color:pink;');
+  
+  //second_part
+  second_part.setAttribute('style', 'float:left; width:49.8%;');  
+  
+  //add new_name_div
+
+  new_name_div.setAttribute('contenteditable', 'true');
+  new_name_div.setAttribute('style', 'min-height:200px;width:99%;margin:5px 1px 10px 2px;');
+  new_name_div.setAttribute('onkeyup', 'make_height_equal(this)');
+  new_name_div.setAttribute('id', new_name_div_id);
+
+  
+  var explicit_name_node = document.createTextNode( "" );
+  new_name_div.appendChild(explicit_name_node);
+  
+  first_part.appendChild(new_name_div);  
+  
+  
+  //add new_content_div
+
+  new_content_div.setAttribute('contenteditable', 'true');
+  new_content_div.setAttribute('style', 'min-height:200px;width:99%;margin:5px 1px 10px 2px;');
+  new_content_div.setAttribute('onkeyup', 'make_height_equal(this)');
+  new_content_div.setAttribute('id', new_content_div_id);
+
+  
+  var explicit_content_node = document.createTextNode( "" );
+  new_content_div.appendChild(explicit_name_node);
+  
+  second_part.appendChild(new_content_div);   
+  
+  //add divs to the corresponding parts
+  first_part.appendChild(new_name_div);
+  second_part.appendChild(new_content_div);
+  
+  //add different parts to card
+  new_card.appendChild(first_part);
+  new_card.appendChild(vertical_line);
+  new_card.appendChild(second_part);
+  
+  //add card to explicit_input_section
+  document.getElementById("explicit_input_section").appendChild(new_card); 
+}
+
+function make_height_equal(o)
+{
+  var number=o.id.replace(/[^0-9]/g,'');
+  var current_name_div=document.getElementById("explicit_card"+number+"_name");
+  var current_content_div=document.getElementById("explicit_card"+number+"_content");
+
+  var max_height=Math.max(current_name_div.clientHeight,current_content_div.clientHeight);
+  document.getElementById("card"+number).style.height=(max_height+9)+"px";
+  document.getElementById("my_vertical_line").style.height=(max_height+16)+"px";
 }  
 
-
+function input_form_submit()
+{
+  var i;
+  for (i = 1; i <= total_input; i++) 
+  {
+    document.getElementById("card"+i+"_name").innerHTML=document.getElementById("explicit_card"+i+"_name").innerHTML; 
+    document.getElementById("card"+i+"_content").innerHTML=document.getElementById("explicit_card"+i+"_content").innerHTML; 
+  }
+  document.getElementById("input_form").submit();
+}
 
 
 

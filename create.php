@@ -45,7 +45,7 @@
   </form>                                                                                          
   <div id=ss style="height:220px; width:60%; border-style: groove;border-width: 2px; float:left; background-color:white;">
     <div style="float:left; width:49%;">
-      <div id='editor2' contenteditable="true" style="border-style: solid;;min-height:200px;width:96%; margin:10px 10px 0px 10px;"onkeyup="make_height_equal()">
+      <div id='editor2' contenteditable="true" style="min-height:200px;border-style: solid;;min-height:200px;width:96%; margin:10px 10px 0px 10px;"onkeyup="make_height_equal()">
   
       </div>
     </div>
@@ -53,9 +53,10 @@
     
       </div>
 
-
+   <div style="float:left; width:49%;">
     <div id='editor3' contenteditable="true" style="min-height:200px;width:49%; float:left;margin:10px 10px 0px 10px; " onkeyup="make_height_equal()"> 
     </div>
+   </div>
     
   </div>
   <div style="float:left;">

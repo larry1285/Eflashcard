@@ -200,3 +200,6 @@ div.vertical-line{
   background-color: pink; /* Line color */
   height: 100%; /* Override in-line if you want specific height. */
 }
+.no_focus {
+    outline :0px solid transparent;
+}

@@ -12,14 +12,16 @@ $('.toolbar a').click(function(e) {
   var command = $(this).data('command');
   if (command == 'h1' || command == 'h2' || command == 'p') {
     document.execCommand('formatBlock', false, command);
+    return false;
   }
   if (command == 'forecolor' || command == 'backcolor') {
     document.execCommand($(this).data('command'), false, $(this).data('value'));
+    return false;
   }
   if (command == 'createlink' || command == 'insertimage') {
     url = prompt('Enter the link here: ', 'http:\/\/');
     document.execCommand($(this).data('command'), false, url);
-  } else document.execCommand($(this).data('command'), false, null);
+  } else {document.execCommand($(this).data('command'), false, null);return false;}
 });
 function submit_category_form() {
   document.getElementById("card1_name").innerHTML=document.getElementById("editor2").innerHTML;
