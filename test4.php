@@ -1,29 +1,21 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <link rel="stylesheet" href="css/style.css">
-  <script src="js/eflash.js"></script>
-</head>
 <body>
-<font color="red">This is some text!</font>
-<div id="div1">
- 
-  <textarea cols="30" rows="4" onkeyup="InputAdjust(this)" id="card1_name" ><div>asdS</div>d<div>a</div>fdf<span style="color:red;"></span>df<></textarea>
-</div>
+
+<p>In HTML, JavaScript statements are "commands" to the browser.</p>
+
+<p id="demo"></p>
 
 <script>
-var para = document.createElement("TEXTAREA");
-
-para.setAttribute('cols', '30');
-para.setAttribute('rows', '4');
-para.setAttribute('onkeyup', 'InputAdjust(this)');
-para.setAttribute('id', 'card1_content');
-var node = document.createTextNode( "This is new." );
-para.appendChild(node);
-var element = document.getElementById("div1");
-element.appendChild(para);
+function car(name){
+	this.name = name;
+}
+var cars= [];
+cars[3]=new car("larry");
+console.log(cars[3].name);
+  if(typeof cars[0] == 'undefined')console.log("fucku")
+document.getElementById("demo").innerHTML=cars[3].name;
 </script>
 
 </body>
 </html>
-

@@ -142,8 +142,10 @@ else if(isset($_GET['input_form_submit']))
     $current_card_name=$_GET['card'.$input_count.'_name'];
     $current_card_content=$_GET['card'.$input_count.'_content'];
     
-    $current_card_content=str_replace(PHP_EOL, '%0D%0A', $current_card_content);
+    $current_card_name=str_replace(PHP_EOL, '', $current_card_name);
+    $current_card_content=str_replace(PHP_EOL, '', $current_card_content);
     $current_card_content=str_replace("'", "\'", $current_card_content);
+
     
     $insert_query = "INSERT INTO {$category_name} (card_name,card_content)
       VALUES ('$current_card_name','$current_card_content')";
@@ -169,8 +171,9 @@ else if(isset($_GET['input_form_submit']))
     
     //**also insert this to admin_db
     $card_admin_id=$category_name."_".$max_id;
-    $insert_card_to_admin_db_query = "INSERT INTO admin_db (id,card_name,card_content)
-    VALUES ('$card_admin_id','$current_card_name','$current_card_content')";
+    $t=time(); 
+    $insert_card_to_admin_db_query = "INSERT INTO admin_db (id,card_name,card_content,rank,add_time,category)
+    VALUES ('$card_admin_id','$current_card_name','$current_card_content',2,$t,'$category_name')";
     $result_insert_card_to_admin_db_query=mysqli_query($connection,$insert_card_to_admin_db_query);
     if(!$result_insert_card_to_admin_db_query){
       die('QUERY FAILED'.mysqli_error($connection)); 
@@ -225,6 +228,11 @@ if (mysqli_num_rows($result_sql_select_all_categories) > 0) {
     $card_name = str_replace('%0D%0A', '<br>', $card_name);
     $card_content=$row["card_content"];
     $card_content = str_replace('%0D%0A', '<br>', $card_content);
+    
+    $row["card_name"]=str_replace("'", "\'", $row["card_name"]);
+    $row["card_name"]=str_replace('"', '&quot', $row["card_name"]);    
+    
+    
     $row["card_content"]=str_replace("'", "\'", $row["card_content"]);
     $row["card_content"]=str_replace('"', '&quot', $row["card_content"]);
     $tool_bar_id=$category_name."_".$row["id"]."_toolbar";

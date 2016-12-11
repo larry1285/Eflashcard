@@ -75,7 +75,7 @@ function InputAdjust(o)
     var number=input_id.replace(/[^0-9]/g,'');
 //    console.log("number="+number); 
     var current_name_id="card"+number+"_name";
-//    console.log("current_name_id="+current_name_id);
+//    console.log("current_name_id="+current_name_id);  
     var current_content_id="card"+number+"_content";
 //    console.log("current_name_id="+current_name_id);
   
@@ -303,14 +303,17 @@ function make_height_equal(o)
   document.getElementById("card"+number).style.height=(max_height+9)+"px";
   document.getElementById("my_vertical_line").style.height=(max_height+16)+"px";
 }  
-
+//
 function input_form_submit()
 {
+  console.log("wtf");
   var i;
   for (i = 1; i <= total_input; i++) 
   {
     document.getElementById("card"+i+"_name").innerHTML=document.getElementById("explicit_card"+i+"_name").innerHTML; 
     document.getElementById("card"+i+"_content").innerHTML=document.getElementById("explicit_card"+i+"_content").innerHTML; 
+    console.log("text!!");
+    console.log(document.getElementById("card"+i+"_content").innerHTML)
   }
   document.getElementById("input_form").submit();
 }

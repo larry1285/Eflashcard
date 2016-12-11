@@ -1,51 +1,24 @@
 <!DOCTYPE html>
 <html>
 <body>
- ]
-  <div style=" width:40px; border-style: solid;">a</div>
-
-  <div style="float:left;width:20px;border-style: solid; marign:30px; ">a</div>
-
-
-
-
-<p id="demo"></p>
-<!DOCTYPE html>
-<html>
-<body>
-
-
+    <?php include "includes/db.php"; ?>
 <?php
-  $count=0;
-  while($count<3){
-    $apple=0;
-  }
-  echo 'count='.$count;
+  $t=time();
+  echo $t."<br>";
+  $t2=time();
+  echo $t2-$t  ;
 ?>
-  </body>
-<script>
-function add_more_input() {
-    var aa= "addss_109";
-    aa = aa.replace(/[^0-9]/g,'');
-    var a = parseInt(aa) + "<br>";
-    var b = parseInt("10.00") + "<br>";
-    var c = parseInt("10.33") + "<br>";
-    var d = parseInt("34 45 66") + "<br>";
-    var e = parseInt("   60   ") + "<br>";
-    var f = parseInt("40 years") + "<br>";
-    var g = parseInt("He was 40") + "<br>";
+<form action="random_card.php?yo=fuck" method="get">
+  First name:<br>
+  <input type="hidden" name="category_list" value="l_m">
+  <br>
+  Last name:<br>
+  
+  <br><br>
+  <input type="submit" value="Submit">
+</form> 
 
-    var h = parseInt("10", 10)+ "<br>";
-    var i = parseInt("010")+ "<br>";
-    var j = parseInt("10", 8)+ "<br>";
-    var k = parseInt("0x10")+ "<br>";
-    var l = parseInt("10", 16)+ "<br>";
-
-    var n = a + b + c + d + e + f + g + "<br>" + h + i + j + k +l;
-    document.getElementById("demo").innerHTML = n;
-}
-</script>
+<p>If you click the "Submit" button, the form-data will be sent to a page called "action_page.php".</p>
 
 </body>
 </html>
-

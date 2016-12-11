@@ -57,11 +57,18 @@
   <button onclick="add_more_input()" style="width:60%;height:70px;"><span class="glyphicon glyphicon-plus"></span></button>
   <br>
   <br>
-  <input type="hidden" value="Submit" name="input_form_submit" form="input_form" onclick="input_form_submit()">   
+  <input type="hidden" value="Submit" name="input_form_submit" form="input_form">   
   <button onclick="input_form_submit()">Submit</button>
 </div>
                                                                                          
 </div>
 <script src="js/editor.js"></script>
+<script>
+    $('[contenteditable]').on('paste',function(e) {
+    e.preventDefault();
+    var text = (e.originalEvent || e).clipboardData.getData('text/plain') || prompt('Paste something..');
+    window.document.execCommand('insertText', false, text);
+  });
+</script>
 </body>
 </html>
