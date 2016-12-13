@@ -1,7 +1,9 @@
 
   <?php include "includes/db.php"; ?>
   <?php
-
+    
+    $rank2_index=$_GET['rank2_index'];
+    
 
     $category_list=[]; //empty array
 //    $category_list[] = "tree"; add element to the category_list array
@@ -88,8 +90,8 @@
 //        if($rand_num <=100 && $rand_num>=81 && $rank5_num_rows!=0){$where_clause.="`admin_db`.`rank`=5 AND (";$card_rank=5;  break;}
 //        else if($rand_num <=80 && $rand_num>=61 && $rank4_num_rows!=0){$where_clause.="`admin_db`.`rank`=4 AND (";$card_rank=4; break;}
 //        else if($rand_num <=60 && $rand_num>=41 && $rank3_num_rows!=0){$where_clause.="`admin_db`.`rank`=3 AND (";$card_rank=3; break;}
-        if($rand_num <=100 && $rand_num>=81 && $rank2_num_rows!=0){$where_clause.="`admin_db`.`rank`=2 AND (";$card_rank=2; break;}
-        else if($rand_num <=80 && $rand_num>=1 && $rank1_num_rows!=0){$where_clause.="`admin_db`.`rank`=1 AND (";$card_rank=1; break;}
+        if($rand_num <=100 && $rand_num>=(100-$rank2_index+1) && $rank2_num_rows!=0){$where_clause.="`admin_db`.`rank`=2 AND (";$card_rank=2; break;}
+        else if($rand_num <=(100-$rank2_index) && $rand_num>=1 && $rank1_num_rows!=0){$where_clause.="`admin_db`.`rank`=1 AND (";$card_rank=1; break;}
       }while(true);
       
       

@@ -33,6 +33,7 @@
   }
  
 ?>
+  <input type='text' id='rank2_index'>
   <button onclick="select_all();">Seclect All</button>
   <button onclick="categories_set_up();">Start</button>
   <p id="card_count"></p>
@@ -74,7 +75,9 @@
 var play_num=0;
 var categories="";
 var current_player_card_id="";
-  
+var rank2_index=0;
+
+
 function card(name,content,rank,id){
 	this.name = name;
   this.content=content;
@@ -124,6 +127,8 @@ function rank_level_down()
 function categories_set_up()
 {
   categories="";
+  rank2_index=document.getElementById("rank2_index").value;
+
   var count=0;
   var first_checked=true;
   do{
@@ -131,7 +136,7 @@ function categories_set_up()
     if(document.getElementById("category_"+count).checked==true)
     {
      
-      console.log(document.getElementById("category_"+count).value);
+//      console.log(document.getElementById("category_"+count).value);
       if(first_checked)categories+=document.getElementById("category_"+count).value;
       else {categories=categories+"_";categories=categories+document.getElementById("category_"+count).value;}
       first_checked=false;
@@ -139,7 +144,7 @@ function categories_set_up()
     count=count+1;
   }while(document.getElementById("category_"+count)!=null)
   
-    console.log(categories);
+//    console.log(categories);
   show_next_random_card();
 }
 function  show_previous_random_card()
@@ -183,7 +188,8 @@ function show_next_random_card() {
         cards[card_count]=temp;
       }
     };
-    xhttp.open("GET", "random_card.php?category_list="+categories, true);
+    //+"&"+"rank2_index="
+    xhttp.open("GET", "random_card.php?category_list="+categories+"&rank2_index="+rank2_index, true);
     xhttp.send();
   }else{
         current_player_card_id=cards[card_count].id;
