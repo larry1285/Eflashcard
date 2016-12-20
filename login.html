@@ -16,25 +16,101 @@
   
   <div class="login-form">
      <h1>NoteGo</h1>
+    <h2>Log In</h2>
+    <form id="login_form" action="index.php">
      <div class="form-group ">
-       <input type="text" class="form-control" placeholder="Username " id="UserName">
+       <input type="text" class="form-control" placeholder="Username " id="login_UserName" name="uname">
        <i class="fa fa-user"></i>
      </div>
      <div class="form-group log-status">
-       <input type="password" class="form-control" placeholder="Password" id="Passwod">
+       <input type="password" class="form-control" placeholder="Password" id="login_Password" name="Password">
        <i class="fa fa-lock"></i>
      </div>
+    
       <span class="alert">Invalid Credentials</span>
       <a class="link" href="#">Lost your password?</a>
-     <button type="button" class="log-btn" onclick="asd">Log in</button>
+
+      <button type="button" class="log-btn" onclick="loginform_submit()">Log in</button>
+      <input type="hidden" name="page_url" value="login.html">
+      <input type="hidden" name="login_form_submit" value="submit">
+    </form>
     <br>
     <br>
     <button type="button" class="log-btn" >facebook log in</button>
-     
-    
+    <br>
+    <br>
+    <h2>Sign Up</h2>
+    <form id="register_form" action="index.php">
+      <div class="form-group ">
+         <input type="text" class="form-control" placeholder="Username " id="register_UserName" name="uname">
+         <i class="fa fa-user"></i>
+      </div>
+      <div class="form-group log-status">
+       <input type="password" class="form-control" placeholder="Password" id="register_Password" name="Password">
+       <i class="fa fa-lock"></i>
+      </div>
+
+<!--
+      <div class="form-group log-status">
+       <input type="text" class="form-control" placeholder="email address" id="email">
+       <i class="fa fa-envelope"></i>
+      </div>
+-->
+      <input type="hidden" name="page_url" value="login.html">
+      <input type="hidden" name="register_form_submit" value="submit">
+      <button type="button" class="log-btn" onclick="registerform_submit()">register</button>
+    </form>
    </div>
 
+<script>
 
+function registerform_submit(){
+  var register_UserName=document.getElementById("register_UserName").value;
+  var register_Password=document.getElementById("register_Password").value;
+
+  var xhttp;
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() 
+  {
+    if (this.readyState == 4 && this.status == 200) {
+    console.log(this.responseText);
+//      var responseArray = this.responseText.split("||");
+      substring = "Duplicate";
+      if(this.responseText.indexOf(substring) !== -1){
+        alert("the unsersame you entered has already been used by another user,plz try another one ty");
+      }else{
+        
+        document.getElementById("register_form").submit();    
+      }
+    }
+  };
+  xhttp.open("GET", "register.php?register_UserName="+register_UserName+"&register_Password="+register_Password,true);
+  xhttp.send();
+}
+function loginform_submit(){
+  var login_UserName=document.getElementById("login_UserName").value;
+  var login_Password=document.getElementById("login_Password").value;
+
+  var xhttp;
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() 
+  {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
+//      var responseArray = this.responseText.split("||");
+      substring = "success";
+      if(this.responseText.indexOf(substring) !== -1){
+        document.getElementById("login_form").submit(); 
+      }else{
+        
+        alert("the password u entered is not correct");
+      }
+    }
+  };
+  xhttp.open("GET", "login.php?login_UserName="+login_UserName+"&login_Password="+login_Password,true);
+  xhttp.send();
+}
+</script>
 
 </body>
 </html>

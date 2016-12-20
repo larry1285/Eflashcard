@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<?php include "includes/nav.html"; ?>
+<?php include "includes/nav.php"; ?>
     
 <div class="container-fluid" style="position:relative; top:-20px;" id="create_background">
   <row>
@@ -28,14 +28,15 @@
     <row>
       <div class="col-xs-12">
         <p style="font-size:40px;"><strong>字卡集標題</strong></p>
-        <input type = "text" class = "form-control" name="category_name" style="width:700px;font-size:60px;" placeholder = "請輸入標題" >
+        <input type = "text" class = "form-control" id="category_name" name="category_name" style="width:700px;font-size:60px;" placeholder = "請輸入標題" >
         <hr>
       </div>
     </row>
     
     <div style="padding-left:15px;">
-      <textarea rows="4" cols="80" id="card1_name" name="card1_name" form="category_form" onkeyup="InputAdjust(this)"></textarea>
-      <textarea rows="4" cols="80" id="card1_content" name="card1_content" form="category_form" style="position:relative;left:-5px;" onkeyup="InputAdjust(this)"></textarea>
+      <?php echo '<input type="hidden" id="uname" name="uname" value="'.$uname.'">' ?>
+      <textarea rows="4" cols="80" id="card1_name" name="card1_name" form="category_form" onkeyup="InputAdjust(this)" style="display:none"></textarea>
+      <textarea rows="4" cols="80" id="card1_content" name="card1_content" form="category_form" style="position:relative;left:-5px;display:none" onkeyup="InputAdjust(this)" ></textarea>
       <br>
     </div>   
 
@@ -45,7 +46,7 @@
   </form>                                                                                          
   <div id=ss style="height:220px; width:60%; border-style: groove;border-width: 2px; float:left; background-color:white;">
     <div style="float:left; width:49%;">
-      <div id='editor2' contenteditable="true" style="min-height:200px;border-style: solid;;min-height:200px;width:96%; margin:10px 10px 0px 10px;"onkeyup="make_height_equal()">
+      <div id='editor2' contenteditable="true" style="min-height:200px; min-height:200px;width:96%; margin:10px 10px 0px 10px;"onkeyup="make_height_equal()">
   
       </div>
     </div>
@@ -54,7 +55,7 @@
       </div>
 
    <div style="float:left; width:49%;">
-    <div id='editor3' contenteditable="true" style="min-height:200px;width:49%; float:left;margin:10px 10px 0px 10px; " onkeyup="make_height_equal()"> 
+    <div id='editor3' contenteditable="true" style="min-height:200px;width:100%; float:left;margin:10px 10px 0px 10px; " onkeyup="make_height_equal()"> 
     </div>
    </div>
     
@@ -62,15 +63,25 @@
   <div style="float:left;">
   <?php  include "includes/toolbar.html"; ?>
   </div>
-  <p>wtf</p>
+
   <div style="clear:left; padding-top:10px;">
   <input type="hidden" name="category_submit" value="Submit" form="category_form">
   <input type="button" onclick="submit_category_form()" value="Submit" form="category_form">
   </div>
 </div>
 <script src="js/editor.js"></script>
+<script>
+function submit_category_form() {
+  var uname=document.getElementById("uname").innerHTML;
+
+  document.getElementById("category_name").value=uname+"_"+document.getElementById("category_name").value;
+
+  document.getElementById("card1_name").innerHTML=document.getElementById("editor2").innerHTML;
+  document.getElementById("card1_content").innerHTML=document.getElementById("editor3").innerHTML;
   
-  
+  document.getElementById("category_form").submit();
+}
+</script>
   
 
 </body>

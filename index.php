@@ -10,30 +10,58 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="js/eflash.js"></script>
 </head>
-<body>
-<?php include "includes/db.php"; ?>
-<?php include "includes/nav.html"; ?>
+<body style="background-color:#F5F5DC;">
+<?php
+$uname=$_GET['uname'];
+?>
   
-<div class="container" >
-  <?php
-  $query="SHOW TABLES FROM ". DB_NAME;
+  
+<?php include "includes/db.php"; ?>
+<?php include "includes/nav.php"; ?>
+
+
+<?php
+function show_user_category(){
+  global $connection,$uname;
+  $uname_underscore=$uname.'_';
+  $query="SHOW TABLES FROM ". DB_NAME . " LIKE '$uname_underscore%'";
+//  echo $query;
   $result = mysqli_query($connection,$query);
-  if (mysqli_num_rows($result) > 0) {
-    while($table = mysqli_fetch_array($result)) {
-          echo '<a class="category" href="category_content.php?category_name='.$table[0].'">'.$table[0].'</a><br>';
-    }
-  } else {
+  if($result){
+    if (mysqli_num_rows($result) > 0) {
+      while($table = mysqli_fetch_array($result)) {
+        $category_name=$table[0];
+        $sub= substr ( $category_name , strlen ($uname)+1 , strlen ($category_name) );
+//         echo $sub."<br>";
+        echo '<a class="category" href="category_content.php?category_name='.$table[0].'&uname='.$uname.'">'.$sub.'</a>';
+
+      }
+    } 
+  }else {
     echo "0 results";
   }
+}
+
+  
+
+?>
+<div class="container" style="margin-left:25%;">
+  <?php
+    if(isset($_GET['uname'])){
+      show_user_category();
+    }else{
+      //redirect to login.html
+    }
   ?>
 </div>
+  
 <script>
 function send_search_form(){
   document.getElementById("search_form").submit();  
 }
 
 </script>
--->
+
 </body>
 </html>
 

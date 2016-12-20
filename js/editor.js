@@ -23,8 +23,3 @@ $('.toolbar a').click(function(e) {
     document.execCommand($(this).data('command'), false, url);
   } else {document.execCommand($(this).data('command'), false, null);return false;}
 });
-function submit_category_form() {
-  document.getElementById("card1_name").innerHTML=document.getElementById("editor2").innerHTML;
-  document.getElementById("card1_content").innerHTML=document.getElementById("editor3").innerHTML;
-  document.getElementById("category_form").submit();
-}

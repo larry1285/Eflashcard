@@ -1,7 +1,11 @@
+<?php 
+  $uname=$_GET['uname'];
+  echo '<div id="uname" style="display: none;">'.$uname.'</div>'; //a lazy approach to let javascript get form data
+?> 
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="index.php">Eflashcard</a>
+      <?php echo'<a class="navbar-brand" href="index.php?uname='.$uname.'">Eflashcard</a>' ?>
     </div>
     <ul class="nav navbar-nav">
       <li class="active" style="position:relative; top:6px">
@@ -13,11 +17,21 @@
                 <span class="glyphicon glyphicon-search"></span>
               </button>
             </span>
+            <?php echo '<input type="hidden" value="'.$uname.'" name="uname">' ?>
           </div> 
         </form>
       </li>
-      <li style="padding-top:11px;"><a href="create.php" style="font-size:35px; padding-top:10px;">Create<span class="glyphicon glyphicon-plus" style="position:relative; left:3px; top:1px"></span></a></li>
-      <li style="padding-left:20px;padding-top:8px;font-size:35px;"><a href="flashcard_player.php"><span class="glyphicon glyphicon-play"></span></a></li>
+      <?php 
+
+      echo'
+      <li style="padding-top:11px;"><a href="create.php?uname='.$uname.'" style="font-size:35px; padding-top:10px;">Create<span class="glyphicon glyphicon-plus" style="position:relative; left:3px; top:1px"></span></a></li>';
+      ?>
+
+      <?php 
+
+      echo'
+      <li style="padding-left:20px;padding-top:8px;font-size:35px;"><a href="flashcard_player.php?uname='.$uname.'"><span class="glyphicon glyphicon-play"></span></a></li>';
+      ?>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#" style="padding-top:25px; font-size:25px;"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>

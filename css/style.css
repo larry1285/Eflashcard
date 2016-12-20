@@ -9,12 +9,23 @@ background-color:#E0E0E0;
     margin-bottom: 14px;
 }
 
+table.search:hover{
+  border-bottom: 3px solid red;
+}
+
 hr.vertical
 {
    width: 0px;
    height: 100%; /* or height in PX */
 } 
-
+hr.horizontal
+{
+  height: 3px; 
+  border: 0; 
+  margin: 1em 0; 
+  padding: 0; 
+  background-color:yellow;
+}
 .navbar {
   min-height: 100px;
 }

@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<?php include "includes/nav.html"; ?>
+<?php include "includes/nav.php"; ?>
     
 <div class="container-fluid" style="position:relative; top:-20px;" id="create_background">
 
@@ -57,6 +57,7 @@
   <button onclick="add_more_input()" style="width:60%;height:70px;"><span class="glyphicon glyphicon-plus"></span></button>
   <br>
   <br>
+  <?php echo '<input type="hidden" value="'.$uname.'" name="uname" form="input_form">' ?>
   <input type="hidden" value="Submit" name="input_form_submit" form="input_form">   
   <button onclick="input_form_submit()">Submit</button>
 </div>

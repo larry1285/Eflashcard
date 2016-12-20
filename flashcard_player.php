@@ -11,10 +11,11 @@
   <script src="js/eflash.js"></script>
 </head>
 <body>
+ 
 <?php include "includes/db.php"; ?>
-<?php include "includes/nav.html"; ?>
+<?php include "includes/nav.php"; ?>
 <?php $player_index=0; ?>
-    
+  
 
 <form action="flashcard_player.php" id="player_minus_form">
   <input type="hidden" name="player_mius_form_submit" value="Submit">
@@ -22,12 +23,14 @@
   <h1>please choose the categories you want to review!</h1>
 <div id="select_categories">
 <?php
-  $all_table_sql = "SHOW TABLES FROM Eflashcard";
-
+  $underscore_uname=$uname."_";
+  $all_table_sql = "SHOW TABLES FROM Eflashcard LIKE '$underscore_uname%'";
+  
   $result_all_table_sql = mysqli_query($connection,$all_table_sql);
   $count=0;
   while ($row = mysqli_fetch_row($result_all_table_sql)) {
-    echo "<input type='checkbox' id='category_$count' value='$row[0]'>".$row[0];
+    $table_name=substr($row[0],strlen($underscore_uname),strlen($row[0]));
+    echo "<input type='checkbox' id='category_$count' value='$row[0]'>".$table_name;
     if(($count+1)%14==0 )echo "<br>";
     $count=$count+1;
   }
@@ -53,15 +56,14 @@
   
 //  echo 'card_name='.$arrayobj[$play_index]->card_name.'<br>';
 //  echo 'card_content='.$arrayobj[$play_index]->card_content.'<br>';
-  echo '<p id="player_card_name" style="valign:top;white-space:pre;border-radius: 25px; border: 2px solid #73AD21; padding: 20px; width: 30%; height: 400px;float:left;margin-left:10px;" >
+  echo '<p id="player_card_name" style="word-break: break-all;valign:top;border-radius: 25px; border: 2px solid #73AD21; padding: 20px; width: 30%; height: 400px;float:left;margin-left:10px;" >
     asdsad
   </p> ' ;
+  echo '<p id="player_card_content" style="word-wrap: break-word;valign:top;border-radius: 25px; border: 2px solid #73AD21;padding:20px; width: 30%; height: 400px;float:left;margin-left:10px;" >
+    asdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsad
+  </p>'; 
 
-  echo '<p id="player_card_content" style="valign:top;white-space:pre;border-radius: 25px; border: 2px solid #73AD21;padding:20px; width: 30%; height: 400px;float:left;margin-left:10px;" >
-    asdsad
-  </p>';  
-  
-  echo '<div style="clear:left;"><button onclick="show_previous_random_card();" style="background-color: Transparent;border: none; font-size: 40px;"><span class="glyphicon glyphicon-circle-arrow-left"></span>
+  echo '<div style="clear:left;"><button onclick="show_previous_random_card();" style="word-wrap:break-word;background-color: Transparent;border: none; font-size: 40px;"><span class="glyphicon glyphicon-circle-arrow-left"></span>
   <button onclick="show_next_random_card();" class="glyphicon glyphicon-circle-arrow-right" style="background-color: Transparent;border: none;font-size: 40px"></button>
   <button onclick="rank_level_up();" class="glyphicon glyphicon-plus" style="background-color: Transparent;border: none;font-size: 40px"></button>
   <button onclick="rank_level_down();" class="glyphicon glyphicon-minus" style="background-color: Transparent;border: none;font-size: 40px"></button>
@@ -76,6 +78,8 @@ var play_num=0;
 var categories="";
 var current_player_card_id="";
 var rank2_index=0;
+var uname=document.getElementById("uname").innerHTML;
+
 
 
 function card(name,content,rank,id){
@@ -101,12 +105,13 @@ function select_all()
 function rank_level_up()
 {
   xhttp = new XMLHttpRequest();
-  xhttp.open("GET", "rank_level_up.php?card_id="+current_player_card_id, true);
+  xhttp.open("GET", "rank_level_up.php?card_id="+current_player_card_id+"&uname="+uname, true);
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       console.log(this.responseText);
       var response = this.responseText;
       document.getElementById("card_rank").innerHTML = response;
+      cards[card_count].rank=response;
     }
   };
   xhttp.send();
@@ -114,12 +119,13 @@ function rank_level_up()
 function rank_level_down()
 {
   xhttp = new XMLHttpRequest();
-  xhttp.open("GET", "rank_level_down.php?card_id="+current_player_card_id, true);
+  xhttp.open("GET", "rank_level_down.php?card_id="+current_player_card_id+"&uname="+uname, true);
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       console.log(this.responseText);
       var response = this.responseText;
       document.getElementById("card_rank").innerHTML = response;
+      cards[card_count].rank=response;
     }
   };
   xhttp.send();
@@ -138,7 +144,7 @@ function categories_set_up()
      
 //      console.log(document.getElementById("category_"+count).value);
       if(first_checked)categories+=document.getElementById("category_"+count).value;
-      else {categories=categories+"_";categories=categories+document.getElementById("category_"+count).value;}
+      else {categories=categories+"|";categories=categories+document.getElementById("category_"+count).value;}
       first_checked=false;
     }
     count=count+1;
@@ -160,6 +166,7 @@ function  show_previous_random_card()
   }
 }
 function show_next_random_card() {
+  console.log(categories);
   if(card_count<49)card_count=card_count+1;
   document.getElementById("card_count").innerHTML=card_count;
 //  console.log("play_num="+play_num);
@@ -170,7 +177,7 @@ function show_next_random_card() {
     xhttp.onreadystatechange = function() 
     {
       if (this.readyState == 4 && this.status == 200) {
-  //      console.log(this.responseText);
+        console.log(this.responseText);
         var responseArray = this.responseText.split("||");
         var kk=responseArray[2].replace("%0D%0A", "&#13;&#10;");
   //      console.log(kk);
@@ -189,7 +196,7 @@ function show_next_random_card() {
       }
     };
     //+"&"+"rank2_index="
-    xhttp.open("GET", "random_card.php?category_list="+categories+"&rank2_index="+rank2_index, true);
+    xhttp.open("GET", "random_card.php?category_list="+categories+"&rank2_index="+rank2_index+"&uname="+uname, true);
     xhttp.send();
   }else{
         current_player_card_id=cards[card_count].id;

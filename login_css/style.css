@@ -20,7 +20,7 @@ h1 {
 }
 
 .login-form {
-  width: 350px;
+  width: 600px;
   padding: 40px 30px;
   background: #eee;
   -moz-border-radius: 4px;
@@ -143,3 +143,5 @@ h1 {
     left: -15px;
   }
 }
+
+

@@ -99,7 +99,7 @@ function adjustheight(o)
 }
 
 
-function edit_content(category_name,card_name,card_content,category_row_id)
+function edit_content(category_name,card_name,card_content,category_row_id,uname)
 {
   edit_content_flag=true;
   current_pencil=category_name+"_"+category_row_id+"_pencil";
@@ -113,7 +113,7 @@ function edit_content(category_name,card_name,card_content,category_row_id)
   
 
   
-  console.log("oh my fucking god");
+  console.log("@@@@@@@@");
   console.log(category_name);
   console.log(card_name);
   console.log(card_content);
@@ -140,6 +140,7 @@ function edit_content(category_name,card_name,card_content,category_row_id)
     "<textarea style='display:none' cols='59' id="+'"'+implicit_current_name_textarea_id+'"'+" onkeyup='adjustheight(this)' form='edit_form'       name='edit_name_textarea'>"+card_name+
     "</textarea>"+
     '<input type="hidden" name="category_name" value="'+category_name+'">'+
+    '<input type="hidden" name="uname" value="'+uname+'">'+
     '<input type="hidden" name="card_id" value="'+category_row_id+'">'
   ); 
   // </form> is added by browser automatically 
