@@ -9,9 +9,6 @@ background-color:#E0E0E0;
     margin-bottom: 14px;
 }
 
-table.search:hover{
-  border-bottom: 3px solid red;
-}
 
 hr.vertical
 {
@@ -213,4 +210,13 @@ div.vertical-line{
 }
 .no_focus {
     outline :0px solid transparent;
+}
+.circle-icon {
+    background: #ffc0c0;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    text-align: center;
+    vertical-align: :center;
+    padding-top:20px;
 }

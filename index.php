@@ -33,7 +33,7 @@ function show_user_category(){
         $category_name=$table[0];
         $sub= substr ( $category_name , strlen ($uname)+1 , strlen ($category_name) );
 //         echo $sub."<br>";
-        echo '<a class="category" href="category_content.php?category_name='.$table[0].'&uname='.$uname.'">'.$sub.'</a>';
+        echo '<a class="category" href="category_content.php?category_name='.$table[0].'&uname='.$uname.'&page_url='."index.php".'">'.$sub.'</a>';
 
       }
     } 

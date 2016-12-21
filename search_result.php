@@ -9,6 +9,12 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="js/eflash.js"></script>
+<style>
+table.search:hover{
+  border-bottom: 3px solid yellow;
+}
+
+</style>
 </head>
 <!--  background-color:#F5F5DC;-->
 <body style="background-color:#F5F5DC;">
@@ -74,9 +80,11 @@
       }  
     }
   ?>
-<form id="visit_form" action="login.html" method="post">
+<form id="visit_form" action="category_content.php" method="GET">
   <input type="hidden" id="visit_form_uname" name="uname" value="">
   <input type="hidden" id="visit_form_owner" name="owner" value="">
+  <input type="hidden" id="visit_form_category_name" name="category_name" value="">
+  <input type="hidden" name="page_url" value="search_result.php">
 </form> 
 
 </div>
@@ -85,6 +93,7 @@ function visit_table(object,visitor,owner){
   console.log(object.id);
   console.log(visitor);
   console.log(owner);
+  document.getElementById("visit_form_category_name").value=object.id;
   document.getElementById("visit_form_uname").value=visitor;
   document.getElementById("visit_form_owner").value=owner;
   document.getElementById("visit_form").submit();
