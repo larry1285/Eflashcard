@@ -127,6 +127,15 @@ h1.category_heaer
   font-size: 30px;
   
 }
+.circle-icon {
+    background: #ffc0c0;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    text-align: center;
+    vertical-align: :center;
+    padding-top:20px;
+}
 
 .toolbar a:hover,
 .fore-wrapper:hover,
@@ -146,9 +155,6 @@ a[data-command='superscript'] {
   border-radius: 0 3px 3px 0;
 }
 
-a[data-command='undo'],
-a[data-command='undo'],
-a[data-command='undo'],
 a[data-command='undo'],
 .fore-wrapper,
 a[data-command='justifyLeft'],
