@@ -147,6 +147,9 @@ a[data-command='superscript'] {
 }
 
 a[data-command='undo'],
+a[data-command='undo'],
+a[data-command='undo'],
+a[data-command='undo'],
 .fore-wrapper,
 a[data-command='justifyLeft'],
 a[data-command='insertUnorderedList'],
@@ -221,7 +224,6 @@ div.vertical-line{
     padding-top:20px;
 }
 
-/*dummy texts below*/
 .toolbar a,
 .fore-wrapper,
 .back-wrapper {
