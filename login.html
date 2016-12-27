@@ -31,6 +31,7 @@
       <a class="link" href="#">Lost your password?</a>
 
       <button type="button" class="log-btn" onclick="loginform_submit()">Log in</button>
+      <input type="text" hidden id="orgcheck" value="1" />
       <input type="hidden" name="page_url" value="login.html">
       <input type="hidden" name="login_form_submit" value="submit">
     </form>
@@ -40,7 +41,7 @@
     <br>
     <br>
     <h2>Sign Up</h2>
-    <form id="register_form" action="index.php">
+    <form id="register_form" action="index.php" id="reg">
       <div class="form-group ">
          <input type="text" class="form-control" placeholder="Username " id="register_UserName" name="uname">
          <i class="fa fa-user"></i>
@@ -58,6 +59,7 @@
 -->
       <input type="hidden" name="page_url" value="login.html">
       <input type="hidden" name="register_form_submit" value="submit">
+      <input type="text" hidden id="orgcheck" value="1" />
       <button type="button" class="log-btn" onclick="registerform_submit()">register</button>
     </form>
    </div>

@@ -1,5 +1,10 @@
 <?php 
-  $uname=$_GET['uname'];
+  if(isset($_GET['uname'])){
+    $uname=$_GET['uname'];
+  }
+  else{
+    $uname="";
+  }
   echo '<div id="uname" style="display: none;">'.$uname.'</div>'; //a lazy approach to let javascript get form data
 ?> 
 <nav class="navbar navbar-default">
@@ -34,8 +39,8 @@
       ?>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#" style="padding-top:25px; font-size:25px;"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a href="#" style="padding-top:25px; font-size:25px;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      <li><a href="login.html" style="padding-top:25px; font-size:25px;"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="login.html" style="padding-top:25px; font-size:25px;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
     </ul>
   </div>
 </nav>
