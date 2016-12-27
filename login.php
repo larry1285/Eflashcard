@@ -1,5 +1,9 @@
 <?php include "includes/db.php"; ?>
 <?php
+	if(!isset($_GET['orgcheck'])){
+		echo "<a href='login.html'>Click Me To Login</a>";
+		die();
+	}
   $login_UserName=$_GET['login_UserName'];
   $login_Password=$_GET['login_Password'];
   $query="SELECT * FROM users WHERE `UNAME`='$login_UserName' AND `UPASS`='$login_Password'";

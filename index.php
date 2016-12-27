@@ -12,7 +12,12 @@
 </head>
 <body style="background-color:#F5F5DC;">
 <?php
-$uname=$_GET['uname'];
+if(isset($_GET['uname'])){
+  $uname=$_GET['uname'];
+}
+else{
+  $uname="";
+}
 ?>
   
   
