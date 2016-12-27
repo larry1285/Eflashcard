@@ -19,8 +19,8 @@ function Redirect($url, $permanent = false)
     exit();
 }
 
-if(!isset($_GET['uname'])){Redirect('http://localhost/Eflashcard/login.html', false);}
-$uname=$_GET['uname'];
+//if(!isset($_GET['uname'])){Redirect('http://localhost/Eflashcard/login.html', false);}
+//$uname=$_GET['uname'];
 ?>
   
   
