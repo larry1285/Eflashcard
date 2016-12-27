@@ -10,7 +10,11 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="js//eflash.js"></script>
-
+  <style>
+  #copy:hover{ 
+      background-color: yellow;
+  }
+  </style>
 </head>
 <body class="b1">
 <?php include "includes/db.php"; ?>
@@ -35,7 +39,12 @@ echo '
 ';  
   
 ?> 
-  <div class="circle-icon" style="margin-left:53px;"><i class="fa fa-file-o" aria-hidden="true" style="color:white;font-size:40px; "></i></div>
+  <div class="circle-icon" style="margin-left:53px;">
+    <?php echo'
+    <a href="create.php?uname='.$uname.'&category_name='.$category_name.'"   id="copy" class="fa fa-file-o" aria-hidden="true" style="color:white;font-size:40px; ">
+    </a>';
+    ?>
+  </div>
 </div>
 <div class="container"> 
 <?php  //create table and insert user's data if sumbit button is clicked
@@ -56,7 +65,7 @@ if($previous_page==="search_result.php"){
            <input type=\"submit\" value=\"新增字卡\" name=\"add_input_submit\"><br><br>
            <input type=\"hidden\" name=\"category_name\" value=\"$category_name\">
          </form>";
-  if(isset($_GET['category_submit'])){
+  if(isset($_GET['category_form_submit'])){
 
 
     $query="SHOW TABLES FROM ". DB_NAME . " LIKE '$user_admin_db'";
@@ -100,7 +109,7 @@ if($previous_page==="search_result.php"){
       }
       else { 
         //table not exist
-        //echo "Table not  exists";
+        echo "Table not  exists";
         $query = "CREATE TABLE {$category_name} ( 
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
         card_name VARCHAR(2047) NOT NULL,
@@ -111,25 +120,57 @@ if($previous_page==="search_result.php"){
           die('QUERY FAILED'.mysqli_error($connection));
         }
 
-        //**insert card to corresponding category
+    $input_count=1;
+    while(isset($_GET['card'.$input_count.'_name']))
+    {
+      echo "wtf";
+      //insert card to corresponding category
 
-        $query = "INSERT INTO {$category_name} (card_name,card_content)
-        VALUES ('$card1_name','$card1_content')";
-        $insert_first_card_of_the_category=mysqli_query($connection,$query);
-        if(!$insert_first_card_of_the_category){
-          die('QUERY FAILED'.mysqli_error($connection)); 
-        }  
-        //**also insert this to admin_db
+      $current_card_name=$_GET['card'.$input_count.'_name'];
+      $current_card_content=$_GET['card'.$input_count.'_content'];
 
-        $card_admin_id=$category_name ."_1";
+      $current_card_name=str_replace(PHP_EOL, '', $current_card_name);
+      $current_card_content=str_replace(PHP_EOL, '', $current_card_content);
+      $current_card_content=str_replace("'", "\'", $current_card_content);
 
-        $time=time();
-        $insert_card_to_admin_db_query = "INSERT INTO $user_admin_db (id,card_name,card_content,add_time,category,rank)
-        VALUES ('$card_admin_id','$card1_name','$card1_content','$time','$category_name',2)";
-        $result_insert_card_to_admin_db_query=mysqli_query($connection,$insert_card_to_admin_db_query);
-        if(!$result_insert_card_to_admin_db_query){
-          die('QUERY FAILasdED'.mysqli_error($connection)); 
-        }      
+
+      $insert_query = "INSERT INTO {$category_name} (card_name,card_content)
+        VALUES ('$current_card_name','$current_card_content')";
+
+      $result_insert_category=mysqli_query($connection,$insert_query);
+      if($result_insert_category){echo 'insert query SUCCEEDED';}
+      else {echo 'insert query FAILED';echo"error".mysqli_error($connection);}
+
+      //select the max id in the category
+
+      $max_id=0;
+      $sql_select_max_id="SELECT * from {$category_name} ORDER BY id DESC LIMIT 1";
+      $result_sql_select_max_id = mysqli_query($connection,$sql_select_max_id);
+      if($result_sql_select_max_id){echo '$sql_select_max_id SUCCEEDED';}
+      else {echo '$sql_select_max_id FAILED';echo"error".mysqli_error($connection);} 
+
+      while ($row = mysqli_fetch_assoc($result_sql_select_max_id)) 
+      {
+        $max_id=$row['id'];
+      }
+
+
+
+      //**also insert this to admin_db
+      $card_admin_id=$category_name."_".$max_id;
+      $t=time(); 
+      $insert_card_to_admin_db_query = "INSERT INTO $user_admin_db (id,card_name,card_content,rank,add_time,category)
+      VALUES ('$card_admin_id','$current_card_name','$current_card_content',2,$t,'$category_name')";
+      $result_insert_card_to_admin_db_query=mysqli_query($connection,$insert_card_to_admin_db_query);
+      if(!$result_insert_card_to_admin_db_query){
+        die('QUERY FAILED'.mysqli_error($connection)); 
+      }     
+
+
+      //increase index
+      $input_count=$input_count+1;
+
+    }    
       }
     }else{
       die('QUERY FAILED'.mysqli_error($connection));

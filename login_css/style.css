@@ -11,10 +11,7 @@ body {
   background-image: url("planet.jpg");
   
 }
-table.search:hover{
-  border-bottom: 3px solid blue;
-  background-color:yellow;
-}
+
 
 h1 {
   color: #ccc;

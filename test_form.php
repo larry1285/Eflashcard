@@ -2,9 +2,9 @@
 <html>
 <body>
 
-<form action="random_card.php">
+<form action="test6.php">
   First name:<br>
-  <input type="text" name="rank2_index" value="30">
+  <input type="text" name="id" value="30">
   <br>
   Last name:<br>
   <input type="text" name="uname" value="larry1273">

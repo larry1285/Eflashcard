@@ -57,10 +57,10 @@
 //  echo 'card_name='.$arrayobj[$play_index]->card_name.'<br>';
 //  echo 'card_content='.$arrayobj[$play_index]->card_content.'<br>';
   echo '<p id="player_card_name" style="word-break: break-all;valign:top;border-radius: 25px; border: 2px solid #73AD21; padding: 20px; width: 30%; height: 400px;float:left;margin-left:10px;" >
-    asdsad
+    
   </p> ' ;
   echo '<p id="player_card_content" style="word-wrap: break-word;valign:top;border-radius: 25px; border: 2px solid #73AD21;padding:20px; width: 30%; height: 400px;float:left;margin-left:10px;" >
-    asdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsad
+    
   </p>'; 
 
   echo '<div style="clear:left;"><button onclick="show_previous_random_card();" style="word-wrap:break-word;background-color: Transparent;border: none; font-size: 40px;"><span class="glyphicon glyphicon-circle-arrow-left"></span>
@@ -78,7 +78,7 @@ var play_num=0;
 var categories="";
 var current_player_card_id="";
 var rank2_index=0;
-var uname=document.getElementById("uname").innerHTML;
+var uname=getUrlVars()['uname'];
 
 
 

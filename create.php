@@ -14,76 +14,136 @@
 <body>
 
 <?php include "includes/nav.php"; ?>
+<?php include "includes/db.php"; ?>
     
 <div class="container-fluid" style="position:relative; top:-20px;" id="create_background">
-  <row>
-    <div class="col-xs-12">
-      <p style="position:relative; top:10px; font-size:40px;"><strong>建立新字卡集</strong></p>
-      <hr style="size:20px;">
-    </div>
-  </row>
+
+  <div class="col-xs-12">
+    <p style="position:relative; top:10px; font-size:40px;"><strong>建立新字卡集</strong></p>
+    <hr style="size:20px;">
+  </div>
+
   
 
-  <form action="category_content.php" id="category_form" method='get'>
-    <row>
-      <div class="col-xs-12">
-        <p style="font-size:40px;"><strong>字卡集標題</strong></p>
-        <input type = "text" class = "form-control" id="category_name" name="category_name" style="width:700px;font-size:60px;" placeholder = "請輸入標題" >
-        <hr>
-      </div>
-    </row>
-    
-    <div style="padding-left:15px;">
-      <?php echo '<input type="hidden" id="uname" name="uname" value="'.$uname.'">' ?>
-      <textarea rows="4" cols="80" id="card1_name" name="card1_name" form="category_form" onkeyup="InputAdjust(this)" style="display:none"></textarea>
-      <textarea rows="4" cols="80" id="card1_content" name="card1_content" form="category_form" style="position:relative;left:-5px;display:none" onkeyup="InputAdjust(this)" ></textarea>
-      <br>
-    </div>   
+  <form action="category_content.php" id="category_form" method='get'></form>
 
-    
-      
-      
-  </form>                                                                                          
-  <div id=ss style="height:220px; width:60%; border-style: groove;border-width: 2px; float:left; background-color:white;">
-    <div style="float:left; width:49%;">
-      <div id='editor2' contenteditable="true" style="min-height:200px; min-height:200px;width:96%; margin:10px 10px 0px 10px;"onkeyup="make_height_equal()">
+  <div>
+    <p style="font-size:40px;"><strong>字卡集標題</strong></p>
+    <?php 
+    if(isset($_GET['category_name'])){
+      $original_category_name=substr($_GET['category_name'],strlen($uname)+1,strlen($_GET['category_name']));
+      echo'
+      <input form="category_form" type = "text" class = "form-control" id="category_name" name="category_name" style="width:700px;font-size:40px;" placeholder = "請輸入標題" value="'.$original_category_name.'">';
+      echo "<br>";
+      show_all_cards();
+
+    }else{
+      echo'
+      <input form="category_form" type = "text" class = "form-control" id="category_name" name="category_name" style="width:700px;font-size:60px;" placeholder = "請輸入標題" >';
+      echo "<br>";
+      show_one_card();
+    }
+    ?>
+
+  </div>
   
-      </div>
-    </div>
-        <div id="my_vertical_line" class="vertical-line" style="height:100%;  float:left; background-color:pink;" >
-    
-      </div>
+  <?php
+  function show_all_cards(){
+    global $connection;
+    $category_name=$_GET['category_name'];
+    $select_all_from_category_query="SELECT * FROM $category_name";
+    $select_all_from_category_result=mysqli_query($connection,$select_all_from_category_query);
+    $count=1;
 
-   <div style="float:left; width:49%;">
-    <div id='editor3' contenteditable="true" style="min-height:200px;width:100%; float:left;margin:10px 10px 0px 10px; " onkeyup="make_height_equal()"> 
-    </div>
-   </div>
-    
-  </div>
-  <div style="float:left;">
-  <?php  include "includes/toolbar.html"; ?>
-  </div>
+    echo'
+    <div style="padding-left:15px;" id="input_section">';
+    if($select_all_from_category_result){
+      while ($row = mysqli_fetch_assoc($select_all_from_category_result)){
+        $current_textarea=array("name"=>"card".$count."_name","content"=>"card".$count."_content");      
+        echo'
+          <textarea rows="4"  id="'.$current_textarea['name'].'" name="'.$current_textarea['name'].'" form="category_form" onkeyup="InputAdjust(this)" style="width:30%;display:none;"></textarea>
+          <textarea rows="4"  id="'.$current_textarea['content'].'" name="'.$current_textarea['content'].'" form="category_form" style="position:relative;left:-5px; width:30%;display:none;" onkeyup="InputAdjust(this)"></textarea>';
 
-  <div style="clear:left; padding-top:10px;">
-  <input type="hidden" name="category_submit" value="Submit" form="category_form">
-  <input type="button" onclick="submit_category_form()" value="Submit" form="category_form">
-  </div>
+     
+        $count=$count+1;
+      }
+      echo "</div>"; 
+      mysqli_data_seek($select_all_from_category_result, 0);
+      $count=1;
+      echo '<div id="explicit_input_section" style="margin-left:30px;">';
+      while ($row = mysqli_fetch_assoc($select_all_from_category_result)){
+        $current_card="card".$count;
+        $current_contenteditable=array("name"=>"explicit_card".$count."_name","content"=>"explicit_card".$count."_content");        
+        echo '
+          <div id="'.$current_card.'" style="height:220px; width:60%; border-style: groove; float:left; background-color:white;">
+            <div style="float:left; width:49.8%;">
+              <div id="'.$current_contenteditable['name'].'" contenteditable="true" style="min-height:200px;width:99%;margin:5px 1px 10px 2px; "onkeyup="make_height_equal(this)">'.$row['card_name'].'
+
+              </div>
+            </div>
+            <div id="my_vertical_line" class="vertical-line" style="width:0.3%;height:101%;  float:left; background-color:pink;" >
+
+            </div>
+            <div style="float:left; width:49.8%;">
+              <div  id="'.$current_contenteditable['content'].'" contenteditable="true" style="min-height:200px;width:99%;margin:5px 1px 10px 2px; "onkeyup="make_height_equal(this)">'.$row['card_content'].'
+
+              </div>
+            </div>
+
+          </div>
+        ';
+        $count=$count+1;
+      }
+    }else{die('QUERY FAILED'.mysqli_error($connection));}
+    echo "</div>";
+  }
+  function show_one_card(){
+    echo'
+      <div style="padding-left:15px;" id="input_section">   
+        <textarea rows="4"  id="card1_name" name="card1_name" form="category_form" onkeyup="InputAdjust(this)" style="width:30%;display:none;"></textarea>
+        <textarea rows="4"  id="card1_content" name="card1_content" form="category_form" style="position:relative;left:-5px; width:30%;display:none;" onkeyup="InputAdjust(this)"></textarea>
+        <br>
+
+      </div>
+      <div id="explicit_input_section">
+        <div id="card1" style="height:220px; width:60%; border-style: groove; float:left; background-color:white;">
+          <div style="float:left; width:49.8%;">
+            <div id="explicit_card1_name" contenteditable="true" style="min-height:200px;width:99%;margin:5px 1px 10px 2px; "onkeyup="make_height_equal(this)">
+
+            </div>
+          </div>
+          <div id="my_vertical_line" class="vertical-line" style="width:0.3%;height:101%;  float:left; background-color:pink;" >
+
+          </div>
+          <div style="float:left; width:49.8%;">
+            <div  id="explicit_card1_content" contenteditable="true" style="min-height:200px;width:99%;margin:5px 1px 10px 2px; "onkeyup="make_height_equal(this)">
+
+            </div>
+          </div>
+
+        </div>
+      </div>    
+    ';
+    
+    
+  }
+  
+  ?>
+<div style="padding-left:15px;">
+  <button onclick="add_more_input()" style="width:60%;height:70px;"><span class="glyphicon glyphicon-plus"></span></button>
+  <br>
+  <br>
+  <?php echo '<input type="hidden" value="'.$uname.'" name="uname" form="category_form">' ?>
+  <input type="hidden" name="page_url" value="create.php" form="category_form">
+  <input type="hidden" value="Submit" name="category_form_submit" form="category_form">   
+  <button onclick="category_form_submit()">Submit</button>
+</div>
+                                                                                         
 </div>
 <script src="js/editor.js"></script>
+  
 <script>
-function submit_category_form() {
-  var uname=document.getElementById("uname").innerHTML;
-
-  document.getElementById("category_name").value=uname+"_"+document.getElementById("category_name").value;
-
-  document.getElementById("card1_name").innerHTML=document.getElementById("editor2").innerHTML;
-  document.getElementById("card1_content").innerHTML=document.getElementById("editor3").innerHTML;
-  
-  document.getElementById("category_form").submit();
-}
+set_all_contenteditable();
 </script>
-  
-
 </body>
 </html>
-

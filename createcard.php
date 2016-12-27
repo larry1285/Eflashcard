@@ -58,6 +58,7 @@
   <br>
   <br>
   <?php echo '<input type="hidden" value="'.$uname.'" name="uname" form="input_form">' ?>
+  <input type="hidden" value="create_card.php" name="page_url" form="input_form">  
   <input type="hidden" value="Submit" name="input_form_submit" form="input_form">   
   <button onclick="input_form_submit()">Submit</button>
 </div>

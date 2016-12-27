@@ -158,12 +158,7 @@ function edit_content(category_name,card_name,card_content,category_row_id,uname
 //      "<div id="+'"'+current_content_textarea_id+'"'+" contenteditable='true' style='height:"+$predicted_current_card_content_height+"px'>"+card_content+
 //      "</div>"
 //  );
-  $('[contenteditable]').on('paste',function(e) {
-    e.preventDefault();
-    var text = (e.originalEvent || e).clipboardData.getData('text/plain') || prompt('Paste something..');
-    window.document.execCommand('insertText', false, text);
-  });
-
+    set_all_contenteditable();
 }
 
 
@@ -175,7 +170,7 @@ function original_add_more_input()
   
   var new_name_textarea = document.createElement("TEXTAREA");
   var new_content_textarea = document.createElement("TEXTAREA");
-  var br_tag=document.createElement("BR");
+
   
   var new_input_name_id='card'+total_input+"_name";
   var new_input_content_id='card'+total_input+"_content";
@@ -189,7 +184,11 @@ function original_add_more_input()
   new_name_textarea.setAttribute('onkeyup', 'InputAdjust(this)');
   new_name_textarea.setAttribute('name', new_input_name_name);
   new_name_textarea.setAttribute('id', new_input_name_id);
-  new_name_textarea.setAttribute('form','input_form');
+  console.log((String(window.location.pathname)).indexOf("create.php"));
+  if((String(window.location.pathname)).indexOf("create.php")>=0)
+    new_name_textarea.setAttribute('form','category_form');
+  else
+    new_name_textarea.setAttribute('form','input_form');
   
   var name_node = document.createTextNode( "" );
   new_name_textarea.appendChild(name_node);
@@ -205,24 +204,41 @@ function original_add_more_input()
   new_content_textarea.setAttribute('onkeyup', 'InputAdjust(this)');
   new_content_textarea.setAttribute('name', new_input_content_name);
   new_content_textarea.setAttribute('id', new_input_content_id);
-  new_content_textarea.setAttribute('form','input_form');
+  if((String(window.location.pathname)).indexOf("create.php")>=0)
+//  if((String(window.location.pathname)).indexOF("create.php"))
+    new_content_textarea.setAttribute('form','category_form');
+  else
+    new_content_textarea.setAttribute('form','input_form');
+//  new_content_textarea.setAttribute('form','input_form');
   
   var content_node = document.createTextNode( "" );
   new_name_textarea.appendChild(content_node);
   
   input_section.appendChild(new_content_textarea);  
   
-  //add br tag
-  input_section.appendChild(br_tag);  
+ 
   
   
   console.log("success!");
   
     
 }
+function set_all_contenteditable(){ 
+  $('[contenteditable]').on('paste',function(e) {
+    e.preventDefault();
+    var text = (e.originalEvent || e).clipboardData.getData('text/plain') || prompt('Paste something..');
+    window.document.execCommand('insertText', false, text);
+  });
+  console.log(total_input);
+}
 function add_more_input()
 {
-  total_input=total_input+1;
+  var highest_id_number=0;
+  while(document.getElementById("explicit_card"+(highest_id_number+1)+"_name")!=null){
+    highest_id_number+=1;console.log("= =");
+  }
+  console.log("highest="+highest_id_number);
+  total_input=highest_id_number+1;
   original_add_more_input();
   
   //declaration
@@ -291,7 +307,8 @@ function add_more_input()
   new_card.appendChild(second_part);
   
   //add card to explicit_input_section
-  document.getElementById("explicit_input_section").appendChild(new_card); 
+  document.getElementById("explicit_input_section").appendChild(new_card);
+  set_all_contenteditable();
 }
 
 function make_height_equal(o)
@@ -310,6 +327,7 @@ function input_form_submit()
   console.log("wtf");
   var i;
   for (i = 1; i <= total_input; i++) 
+    
   {
     document.getElementById("card"+i+"_name").innerHTML=document.getElementById("explicit_card"+i+"_name").innerHTML; 
     document.getElementById("card"+i+"_content").innerHTML=document.getElementById("explicit_card"+i+"_content").innerHTML; 
@@ -320,6 +338,30 @@ function input_form_submit()
 }
 
 
+function category_form_submit(){
+  var highest_id_number=0;
+  while(document.getElementById("explicit_card"+(highest_id_number+1)+"_name")!=null){
+    highest_id_number+=1;
+  }
+  total_input=highest_id_number;  
+  var i;
+  for (i = 1; i <= total_input; i++) 
+  {
+    document.getElementById("card"+i+"_name").innerHTML=document.getElementById("explicit_card"+i+"_name").innerHTML; 
+    document.getElementById("card"+i+"_content").innerHTML=document.getElementById("explicit_card"+i+"_content").innerHTML; 
+    console.log("text!!");
+    console.log(document.getElementById("card"+i+"_content").innerHTML)
+  }
+ document.getElementById("category_name").value=getUrlVars()['uname']+"_"+document.getElementById("category_name").value ;
+  
+ document.getElementById("category_form").submit();
+  
+}
 
-
-
+function getUrlVars() {
+  var vars = {};
+  var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+  vars[key] = value;
+  });
+  return vars;
+}

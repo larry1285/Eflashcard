@@ -1,6 +1,6 @@
 <?php 
   $uname=$_GET['uname'];
-  echo '<div id="uname" style="display: none;">'.$uname.'</div>'; //a lazy approach to let javascript get form data
+  
 ?> 
 <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -34,8 +34,7 @@
       ?>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#" style="padding-top:25px; font-size:25px;"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a href="#" style="padding-top:25px; font-size:25px;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      <?php echo'<li><a href="#" style="padding-top:35px; padding-right:30px; font-size:35px;">'.$uname.'</a></li>'?>   
     </ul>
   </div>
 </nav>

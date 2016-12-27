@@ -1,79 +1,53 @@
-
+<!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title></title>
-	<link rel="stylesheet" href="">
-</head>
 <body>
-	<script>
-		// initialize and setup facebook js sdk
-		window.fbAsyncInit = function() {
-		    FB.init({
-		      appId      : '1310378889003530',
-		      xfbml      : true,
-		      version    : 'v2.8'
-		    });
-		    FB.getLoginStatus(function(response) {
-		    	if (response.status === 'connected') {
-		    		document.getElementById('status').innerHTML = 'We are connected.';
-		    
-		    	} else if (response.status === 'not_authorized') {
-		    		document.getElementById('status').innerHTML = 'We are not logged in.'
-		    	} else {
-		    		document.getElementById('status').innerHTML = 'You are not logged into Facebook.';
-		    	}
-		    });
-		};
-		(function(d, s, id){
-		    var js, fjs = d.getElementsByTagName(s)[0];
-		    if (d.getElementById(id)) {return;}
-		    js = d.createElement(s); js.id = id;
-		    js.src = "//connect.facebook.net/en_US/sdk.js";
-		    fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));
-		
-		// login with facebook with extra permissions
-		function login() {
-			FB.login(function(response) {
-				if (response.status === 'connected') {
-		    		document.getElementById('status').innerHTML = 'We are connected.';
-		    	
-		    	} else if (response.status === 'not_authorized') {
-		    		document.getElementById('status').innerHTML = 'We are not logged in.'
-		    	} else {
-		    		document.getElementById('status').innerHTML = 'You are not logged into Facebook.';
-		    	}
-			}, {scope: 'email'});
-		}
-    
-    function logout() {
-      FB.logout(function(response) {
-        // user is now logged out
-  				if (response.status === 'connected') {
-		    		document.getElementById('status').innerHTML = 'We are connected.';
-		    	
-		    	} else if (response.status === 'not_authorized') {
-		    		document.getElementById('status').innerHTML = 'We are not logged in.'
-		    	} else {
-		    		document.getElementById('status').innerHTML = 'You are not logged into Facebook.';
-		    	}
-      });
-      
-    }
-    
-		// getting basic user info
-		function getInfo() {
-			FB.api('/me', 'GET', {fields: 'first_name,last_name,name,id'}, function(response) {
-				document.getElementById('status').innerHTML = response.lastname;
-			});
-		}
-	</script>
 
-	<div id="status"></div>
-	<button onclick="getInfo()">Get Info</button>
-	<button onclick="login()" id="login">Login</button>
-  <button onclick="logout();">Logout</button>
+<p>Display the path name of the current URL.</p>
+
+<p id="demo"></p>
+<p id="demo2"></p>
+<script>
+var person = [];
+person["firstName"] = "John";
+person["lastName"] = "Doe";
+  console.log(person);
+var x={};
+(function(element){
+  element.yo="yo2";
+  element.say_yo=()=>{console.log(element.yo);};
+
+})(x);
+x.say_yo();
+console.log(x);
+var mySingleton = (function () {
+  var instance;	// stores a reference to the Singleton
+ 
+  function init() {
+    var privateVariable = "I am private";
+    var privateRandomNumber = Math.random();
+ 
+    return {
+      publicProperty: "I am public",
+      getRandomNumber: function() {
+        return privateRandomNumber;
+      }
+    };
+  };
+ 
+  return {
+    getInstance: function () {
+      if ( !instance ) {
+        instance = init();
+      }
+      return instance;
+    }
+  };
+})();
+
+var singleA = mySingleton.getInstance();
+var singleB = mySingleton.getInstance();
+console.log( singleA.getRandomNumber() === singleB.getRandomNumber() ); // true
+</script>
+
 </body>
 </html>

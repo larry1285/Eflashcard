@@ -12,6 +12,14 @@
 </head>
 <body style="background-color:#F5F5DC;">
 <?php
+function Redirect($url, $permanent = false)
+{
+    header('Location: ' . $url, true, $permanent ? 301 : 302);
+
+    exit();
+}
+
+if(!isset($_GET['uname'])){Redirect('http://localhost/Eflashcard/login.html', false);}
 $uname=$_GET['uname'];
 ?>
   
