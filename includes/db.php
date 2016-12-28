@@ -5,6 +5,7 @@ $db['db_host'] = $url["host"];
 $db['db_user'] = $url["user"];
 $db['db_pass'] = $url["pass"];
 $db['db_name'] = substr($url["path"], 1);
+echo "wtf";
 echo $db['db_host'];
 foreach($db as $key => $value){
   define(strtoupper($key),$value);
