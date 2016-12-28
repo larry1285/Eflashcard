@@ -1,5 +1,5 @@
 <?php
-$url = parse_url(getenv("mysql://b416775ee3bbd5:f18a7ad1@us-cdbr-iron-east-04.clear"));
+$url = parse_url(getenv(" mysql://b416775ee3bbd5:f18a7ad1@us-cdbr-iron-east-04.cleardb.net/heroku_fbd7696cb891e27?reconnect=true"));
 
 $db['db_host'] = $url["host"];
 $db['db_user'] = $url["user"];
