@@ -24,11 +24,10 @@ table.search:hover{
 <div class="container" >
   <?php
     $search_text=$_GET['search_text'];
-    echo DB_USER."<br>";
     echo "<h1>與\"$search_text\"相關的搜尋結果</h1>";
     $underscore_search_text="\_%".$search_text;
     $all_table_sql = "SHOW TABLES FROM ".DB_NAME." LIKE '%$underscore_search_text%'";
-    echo "<br>".$all_table_sql."<br>";
+
     $result_all_table_sql = mysqli_query($connection,$all_table_sql);
   if(!$result_all_table_sql){echo mysqli_error($connection);}
     $arrayCount = 0;
@@ -41,7 +40,7 @@ table.search:hover{
         $simple_table_name=substr($table_name,strpos($table_name,"_")+1,strlen($table_name));
         $table_owner=substr($table_name,0,strpos($table_name,"_"));
         $row_count=0;
-        echo $table_name."<br>";
+
         $row_count_query="SELECT COUNT(*) FROM $table_name";
         $row_count_result=mysqli_query($connection,$row_count_query);
         if($row_count_result){
