@@ -11,6 +11,8 @@
   <script src="js/eflash.js"></script>
 </head>
 <body style="background-color:#F5F5DC;">
+<?php include "includes/db.php"; ?>
+<?php include "includes/nav.php"; ?>
 <?php
 function Redirect($url, $permanent = false)
 {
@@ -24,8 +26,7 @@ $uname=$_GET['uname'];
 ?>
   
   
-<?php include "includes/db.php"; ?>
-<?php include "includes/nav.php"; ?>
+
 
 
 <?php
