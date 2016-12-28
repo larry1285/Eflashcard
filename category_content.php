@@ -30,7 +30,11 @@ if(isset($_GET['category_name']))
 {
   $category_name=$_GET['category_name'];
 }
-$sub= substr ( $category_name , strlen ($uname)+1 , strlen ($category_name) );
+if(!isset($_GET['owner'])){
+  $sub= substr ( $category_name , strlen ($uname)+1 , strlen ($category_name) );
+}else{
+  $sub= substr ( $category_name , strlen ($_GET['owner'])+1 , strlen ($category_name) );
+}
 echo '
 
   <span style="font-family:monospace;margin-left:80px;font-size:30px;color:black
@@ -48,8 +52,8 @@ echo '
 </div>
 <div class="container"> 
 <?php  //create table and insert user's data if sumbit button is clicked
-
-$previous_page=$_GET['page_url'];  
+$previous_page="";
+if(isset($_GET['page_url']))$previous_page=$_GET['page_url'];  
   
 if($previous_page==="search_result.php"){
 
@@ -73,7 +77,7 @@ if($previous_page==="search_result.php"){
     $result = mysqli_query($connection,$query);
     $num_rows = mysqli_num_rows($result);
     if($num_rows==0){
-      echo "@@";
+
       $create_admin_db_query="
         CREATE TABLE $user_admin_db (
           id VARCHAR(64) PRIMARY KEY,
@@ -192,7 +196,7 @@ if($previous_page==="search_result.php"){
 
     $new_card_content = str_replace(PHP_EOL, '%0D%0A', $new_card_content);
     $new_card_content = str_replace("'","\'" , $new_card_content);
-    echo "new_card_content=$new_card_content".'<br>';
+//    echo "new_card_content=$new_card_content".'<br>';
 
     //*************testing****************
 
@@ -204,7 +208,7 @@ if($previous_page==="search_result.php"){
       WHERE id={$card_id_to_be_edited}
     ";
     $result_sql_update_category=mysqli_query($connection,$sql_update_category);
-    if($result_sql_update_category){echo 'update query SUCCEEDED';}
+    if($result_sql_update_category){/*echo 'update query SUCCEEDED';*/}
     else {echo 'update query FAILED';echo"error".mysqli_error($connection);}
 
     $card_admin_id=$category_name_to_be_edited."_".$card_id_to_be_edited;
@@ -213,9 +217,9 @@ if($previous_page==="search_result.php"){
       SET card_name='{$new_card_name}', card_content='{$new_card_content}'
       WHERE id='{$card_admin_id}'
     ";  
-    echo $sql_admin_update_category;
+//    echo $sql_admin_update_category;
     $result_sql_admin_update_category=mysqli_query($connection,$sql_admin_update_category);
-    if($result_sql_admin_update_category){echo 'update query SUCCEEDED';}
+    if($result_sql_admin_update_category){/*echo 'update query SUCCEEDED';*/}
     else {echo 'update query FAILED';echo"error".mysqli_error($connection);}
 
   }
