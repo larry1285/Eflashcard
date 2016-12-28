@@ -24,7 +24,7 @@ table.search:hover{
 <div class="container" >
   <?php
     $search_text=$_GET['search_text'];
-
+    echo DB_USER."<br>";
     echo "<h1>與\"$search_text\"相關的搜尋結果</h1>";
     $underscore_search_text="\_%".$search_text;
     $all_table_sql = "SHOW TABLES FROM Eflashcard LIKE '%$underscore_search_text%'";
