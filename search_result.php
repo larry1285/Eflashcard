@@ -27,7 +27,7 @@ table.search:hover{
     echo DB_USER."<br>";
     echo "<h1>與\"$search_text\"相關的搜尋結果</h1>";
     $underscore_search_text="\_%".$search_text;
-    $all_table_sql = "SHOW TABLES FROM ".DB_NAME LIKE." '%$underscore_search_text%'";
+    $all_table_sql = "SHOW TABLES FROM $db['db_name' LIKE '%$underscore_search_text%'";
     echo "<br>".$all_table_sql."<br>";
     $result_all_table_sql = mysqli_query($connection,$all_table_sql);
   if(!$result_all_table_sql){echo mysqli_error($connection);}
