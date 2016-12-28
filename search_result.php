@@ -29,6 +29,7 @@ table.search:hover{
     $underscore_search_text="\_%".$search_text;
     $all_table_sql = "SHOW TABLES FROM Eflashcard LIKE '%$underscore_search_text%'";
     $result_all_table_sql = mysqli_query($connection,$all_table_sql);
+  if(!$result_all_table_sql){echo mysqli_error($connection);}
     $arrayCount = 0;
     while ($row = mysqli_fetch_row($result_all_table_sql)) {
       $table_name=$row[0];
