@@ -21,7 +21,10 @@ function Redirect($url, $permanent = false)
     exit();
 }
 
-if(!isset($_GET['uname'])){Redirect('https://eflashcard.herokuapp.com/login.html', false);}
+if(!isset($_GET['uname'])){
+  Redirect('login.html', false);
+//  Redirect('https://eflashcard.herokuapp.com/login.html', false);
+}
 $uname=$_GET['uname'];
 ?>
   
