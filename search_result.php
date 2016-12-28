@@ -38,6 +38,7 @@ table.search:hover{
         $simple_table_name=substr($table_name,strpos($table_name,"_")+1,strlen($table_name));
         $table_owner=substr($table_name,0,strpos($table_name,"_"));
         $row_count=0;
+        echo $table_name."<br>";
         $row_count_query="SELECT COUNT(*) FROM $table_name";
         $row_count_result=mysqli_query($connection,$row_count_query);
         if($row_count_result){
